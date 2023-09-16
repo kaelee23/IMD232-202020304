@@ -1,12 +1,9 @@
 function setup() {
-  setCanvasContainer('canvas');
-
-  background(255);
-  noStroke();
-  fill('red');
+  setCanvasContainer('canvas-goes-here', 3, 2, true);
+  background(127);
 }
 
 function draw() {
-  background(255);
-  circle(mouseX, mouseY, 50);
+  background(255, 0, 0);
+  circle(mouseX, mouseY, width * 0.1, height * 0.1);
 }
