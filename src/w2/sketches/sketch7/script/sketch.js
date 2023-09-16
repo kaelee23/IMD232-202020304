@@ -1,12 +1,11 @@
 function setup() {
-  setCanvasContainer('canvas', 960, 640);
-
-  background(255);
-  noStroke();
-  fill('red');
+  // createCanvas(500, 500).parent(select('#p5GoesHere'));
+  let canvas = createCanvas(500, 500);
+  let dom = select('#p5GoesHere');
+  canvas.parent(dom);
 }
 
 function draw() {
   background(255);
-  circle(mouseX, mouseY, 50);
+  circle(mouseX, mouseY, 100);
 }
