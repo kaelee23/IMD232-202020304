@@ -1,9 +1,9 @@
 function setup() {
   setCanvasContainer('canvas-goes-here', 3, 2, true);
-  background('#ff7733');
+  background('Gray');
 }
 
 function draw() {
-  background('#ff7733');
+  background('Gray');
   circle(mouseX, mouseY, width * 0.1, height * 0.1);
 }
