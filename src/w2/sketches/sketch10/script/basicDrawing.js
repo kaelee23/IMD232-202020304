@@ -7,7 +7,7 @@ function draw() {
   background(255);
 
   rectMode(CORNER);
-  ellipse(100, 100, 50, 50);
+  ellipse(100, 100, 50);
   rect(100, 100, 50, 50);
   ellipse(200, 100, 50, 25);
   rect(200, 100, 25, 50);
