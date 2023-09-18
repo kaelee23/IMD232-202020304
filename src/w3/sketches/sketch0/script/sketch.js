@@ -21,7 +21,22 @@ function setup() {
 function draw() {
   background(255);
   //벡터로 만들어서 벡터서 정의한 add 사용 ok
+  acc = p5.Vector.random2D();
+  acc.mult(0.5);
+  vel.add(acc);
   pos.add(vel);
+
+  if (pos.x < 0) {
+    pos.x = width;
+  } else if (pos.x > width) {
+    pos.x = 0;
+  }
+  if (pos.y < 0) {
+    pos.y = height;
+  } else if (pos.y > height) {
+    pos.y = 0;
+  }
+
   //if (pos.x < 0) {
   //  vel.x *= -1;
   //} else if (pos.x > width) {
