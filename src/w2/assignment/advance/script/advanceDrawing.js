@@ -79,10 +79,10 @@ function draw() {
   ellipse(300 * kae, 125 * kae, 10 * kae, 15 * kae);
 
   //커튼
-  fill(255);
+  fill(255, 255, 255, 220);
   rect(370 * kae, 26 * kae, 130 * kae, 350 * kae, 5 * kae);
   rect(780 * kae, 26 * kae, 130 * kae, 350 * kae, 5 * kae);
-  fill(228);
+  fill(228, 228, 228, 220);
   rect(387 * kae, 116 * kae, 15 * kae, 260 * kae, 20 * kae, 20 * kae, 0, 0);
   rect(427 * kae, 156 * kae, 15 * kae, 220 * kae, 20 * kae, 20 * kae, 0, 0);
   rect(467 * kae, 136 * kae, 15 * kae, 240 * kae, 20 * kae, 20 * kae, 0, 0);
