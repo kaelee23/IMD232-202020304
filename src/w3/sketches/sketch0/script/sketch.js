@@ -1,5 +1,5 @@
 function setup() {
-  setCanvasContainer('canvas', 3, 2, true);
+  setCanvasContainer('mySketchGoseHere', 3, 2, true);
 
   background(255);
   noStroke();
