@@ -9,7 +9,6 @@ function draw() {
   let kae = height * 0.0016;
 
   //루프로 인해 적용한 설정이 넘어오는 것을 방지
-  strokeWeight(3 * kae);
 
   //시계
   rectMode(CENTER);
@@ -44,35 +43,35 @@ function draw() {
   fill('#7c613a');
   rect(110 * kae, 200 * kae, 300 * kae, 290 * kae, 10 * kae);
   fill('#59491d');
-  rect(130 * kae, 220 * kae, 260 * kae, 80 * kae, 8);
-  rect(130 * kae, 320 * kae, 260 * kae, 80 * kae, 8);
+  rect(130 * kae, 220 * kae, 260 * kae, 80 * kae, 8 * kae);
+  rect(130 * kae, 320 * kae, 260 * kae, 80 * kae, 8 * kae);
   //윗칸
   fill('#9e2a07');
-  rect(130 * kae, 240 * kae, 20 * kae, 60 * kae, 5);
-  rect(260 * kae, 240 * kae, 20 * kae, 60 * kae, 5);
+  rect(130 * kae, 240 * kae, 20 * kae, 60 * kae, 5 * kae);
+  rect(260 * kae, 240 * kae, 20 * kae, 60 * kae, 5 * kae);
   fill('#fce44d');
-  rect(150 * kae, 230 * kae, 20 * kae, 70 * kae, 5);
-  rect(300 * kae, 235 * kae, 20 * kae, 65 * kae, 5);
+  rect(150 * kae, 230 * kae, 20 * kae, 70 * kae, 5 * kae);
+  rect(300 * kae, 235 * kae, 20 * kae, 65 * kae, 5 * kae);
   fill('#008080');
-  rect(280 * kae, 225 * kae, 20 * kae, 75 * kae, 5);
-  rect(180 * kae, 240 * kae, 20 * kae, 60 * kae, 5);
+  rect(280 * kae, 225 * kae, 20 * kae, 75 * kae, 5 * kae);
+  rect(180 * kae, 240 * kae, 20 * kae, 60 * kae, 5 * kae);
   //아래칸
   fill('#9e2a07');
-  rect(230 * kae, 340 * kae, 20 * kae, 60 * kae, 5);
-  rect(150 * kae, 330 * kae, 20 * kae, 70 * kae, 5);
-  rect(300 * kae, 340 * kae, 20 * kae, 60 * kae, 5);
+  rect(230 * kae, 340 * kae, 20 * kae, 60 * kae, 5 * kae);
+  rect(150 * kae, 330 * kae, 20 * kae, 70 * kae, 5 * kae);
+  rect(300 * kae, 340 * kae, 20 * kae, 60 * kae, 5 * kae);
   fill('#fce44d');
-  rect(130 * kae, 340 * kae, 20 * kae, 60 * kae, 5);
-  rect(280 * kae, 330 * kae, 20 * kae, 70 * kae, 5);
-  rect(185 * kae, 335 * kae, 20 * kae, 65 * kae, 5);
+  rect(130 * kae, 340 * kae, 20 * kae, 60 * kae, 5 * kae);
+  rect(280 * kae, 330 * kae, 20 * kae, 70 * kae, 5 * kae);
+  rect(185 * kae, 335 * kae, 20 * kae, 65 * kae, 5 * kae);
   fill('#008080');
-  rect(210 * kae, 340 * kae, 20 * kae, 60 * kae, 5);
+  rect(210 * kae, 340 * kae, 20 * kae, 60 * kae, 5 * kae);
 
   //오브제
   fill(0);
-  rect(270 * kae, 185 * kae, 60 * kae, 15 * kae, 30, 30, 0, 0);
+  rect(270 * kae, 185 * kae, 60 * kae, 15 * kae, 30 * kae, 30 * kae, 0, 0);
   fill(255);
-  rect(290 * kae, 140 * kae, 20 * kae, 45 * kae, 20, 20, 0, 0);
+  rect(290 * kae, 140 * kae, 20 * kae, 45 * kae, 20 * kae, 20 * kae, 0, 0);
   noStroke();
   fill('#e22900');
   ellipse(300 * kae, 120 * kae, 20 * kae, 30 * kae);
@@ -81,23 +80,23 @@ function draw() {
 
   //커튼
   fill(255);
-  rect(370 * kae, 26 * kae, 130 * kae, 350 * kae, 5);
-  rect(780 * kae, 26 * kae, 130 * kae, 350 * kae, 5);
+  rect(370 * kae, 26 * kae, 130 * kae, 350 * kae, 5 * kae);
+  rect(780 * kae, 26 * kae, 130 * kae, 350 * kae, 5 * kae);
   fill(228);
-  rect(387 * kae, 116 * kae, 15 * kae, 260 * kae, 20, 20, 0, 0);
-  rect(427 * kae, 156 * kae, 15 * kae, 220 * kae, 20, 20, 0, 0);
-  rect(467 * kae, 136 * kae, 15 * kae, 240 * kae, 20, 20, 0, 0);
-  rect(797 * kae, 116 * kae, 15 * kae, 260 * kae, 20, 20, 0, 0);
-  rect(837 * kae, 156 * kae, 15 * kae, 220 * kae, 20, 20, 0, 0);
-  rect(877 * kae, 136 * kae, 15 * kae, 240 * kae, 20, 20, 0, 0);
+  rect(387 * kae, 116 * kae, 15 * kae, 260 * kae, 20 * kae, 20 * kae, 0, 0);
+  rect(427 * kae, 156 * kae, 15 * kae, 220 * kae, 20 * kae, 20 * kae, 0, 0);
+  rect(467 * kae, 136 * kae, 15 * kae, 240 * kae, 20 * kae, 20 * kae, 0, 0);
+  rect(797 * kae, 116 * kae, 15 * kae, 260 * kae, 20 * kae, 20 * kae, 0, 0);
+  rect(837 * kae, 156 * kae, 15 * kae, 220 * kae, 20 * kae, 20 * kae, 0, 0);
+  rect(877 * kae, 136 * kae, 15 * kae, 240 * kae, 20 * kae, 20 * kae, 0, 0);
   //책상
   stroke(0);
   fill('#59491d');
-  rect(450 * kae, 320 * kae, 400 * kae, 20 * kae, 20);
+  rect(450 * kae, 320 * kae, 400 * kae, 20 * kae, 20 * kae);
   fill('#7c613a');
   rect(480 * kae, 380 * kae, 30 * kae, 100 * kae);
   rect(785 * kae, 380 * kae, 30 * kae, 100 * kae);
-  rect(465 * kae, 340 * kae, 370 * kae, 40 * kae, 0, 0, 20, 20);
+  rect(465 * kae, 340 * kae, 370 * kae, 40 * kae, 0, 0, 20 * kae, 20 * kae);
 
   //조명
   strokeWeight(20 * kae);
@@ -110,8 +109,17 @@ function draw() {
   strokeWeight(3 * kae);
   fill(100);
   ellipse(515 * kae, 260 * kae, 25 * kae);
-  rect(480 * kae, 300 * kae, 70 * kae, 20 * kae, 50, 50, 0, 0);
-  rect(550 * kae, 210 * kae, 90 * kae, 45 * kae, 50, 50, 5, 5);
+  rect(480 * kae, 300 * kae, 70 * kae, 20 * kae, 50 * kae, 50 * kae, 0, 0);
+  rect(
+    550 * kae,
+    210 * kae,
+    90 * kae,
+    45 * kae,
+    50 * kae,
+    50 * kae,
+    5 * kae,
+    5 * kae
+  );
   noStroke();
   fill('#e22900');
   ellipse(500 * kae, 310 * kae, 10 * kae);
@@ -137,11 +145,11 @@ function draw() {
   stroke(0);
   strokeWeight(3 * kae);
   fill(255);
-  rect(0, 390 * kae, 500 * kae, 120 * kae, 0, 50, 0, 0);
+  rect(0, 390 * kae, 500 * kae, 120 * kae, 0, 50 * kae, 0, 0);
 
   fill('#008080');
-  rect(150 * kae, 390 * kae, 350 * kae, 120 * kae, 0, 50, 0, 0);
+  rect(150 * kae, 390 * kae, 350 * kae, 120 * kae, 0, 50 * kae, 0, 0);
 
   fill('#5f9ea0');
-  rect(5 * kae, 370 * kae, 100 * kae, 70 * kae, 20);
+  rect(5 * kae, 370 * kae, 100 * kae, 70 * kae, 20 * kae);
 }

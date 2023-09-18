@@ -5,13 +5,15 @@ function setup() {
 
 function draw() {
   background('#ece6cc');
+
+  let kae = height * 0.0016;
+
   //루프로 인해 적용한 설정이 넘어오는 것을 방지
-  strokeWeight(3);
 
   //시계
   rectMode(CENTER);
   fill(217, 208, 156);
-  ellipse(100, 100, 90, 90);
+  ellipse(100, 100, 90);
   fill(255);
   ellipse(100, 100, 70);
   stroke(0);
@@ -92,9 +94,9 @@ function draw() {
   fill('#59491d');
   rect(450, 320, 400, 20, 20);
   fill('#7c613a');
+  rect(480, 380, 30, 100);
+  rect(785, 380, 30, 100);
   rect(465, 340, 370, 40, 0, 0, 20, 20);
-  rect(480, 380, 30, 150);
-  rect(785, 380, 30, 150);
 
   //조명
   strokeWeight(20);
@@ -116,7 +118,7 @@ function draw() {
   //의자
   stroke(0);
   fill(0);
-  rect(635, 450, 30, 50, 13);
+  rect(635, 450, 30, 50);
   fill('#9e2a07');
   rect(580, 327, 140, 80, 20);
   rect(580, 435, 140, 30, 20);
