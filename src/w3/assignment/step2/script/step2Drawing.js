@@ -76,15 +76,15 @@ function display() {
   //가속도(acc)선
   centerToAcc.normalize();
   centerToAcc.mult(100);
-  translate(rad.x, rad.y);
+  //translate(rad.x, rad.y);
   stroke('red');
   strokeWeight(2);
   line(pos.x, pos.y, centerToAcc.x, centerToAcc.y);
 
   //속도(vel)선
+  //translate(rad.x, rad.y);
   centerToVel.normalize();
   centerToVel.mult(10);
-  translate(rad.x, rad.y);
   stroke('blue');
   strokeWeight(2);
   line(pos.x, pos.y, centerToVel.x, centerToVel.y);
