@@ -4,6 +4,8 @@ let acc;
 let mouse;
 let center;
 let rad = 30;
+let posToMouse;
+let velTopos;
 
 function setup() {
   setCanvasContainer('canvas', 3, 2, true);
@@ -22,23 +24,21 @@ function reset() {
   vel = createVector();
   acc = createVector();
   center = createVector(rad.x, rad.y);
+  mouse = createVector();
 }
 
 function update() {
-  mouse = createVector(mouseX, mouseY);
-  let mouseTopos = p5.Vector.sub(mouse, pos);
-  mouseTopos.add(2);
-  let posToVel = p5.Vector.sub(mouseTopos, vel);
-  posToVel.limit(0.1);
-  acc.add(posToVel);
+  mouse.set(mouseX, mouseY);
+  posToMouse = p5.Vector.sub(mouse, pos);
+  posToMouse.add(2);
+  velTopos = p5.Vector.sub(posToMouse, vel);
+  velTopos.limit(0.1);
+  acc.add(velTopos);
 
   vel.add(acc);
   vel.limit(8);
   pos.add(vel);
   acc.mult(0);
-
-  pos.x = constrain(pos.x, rad, width - rad);
-  pos.y = constrain(pos.y, rad, height - rad);
 }
 
 function display() {
