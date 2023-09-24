@@ -1,10 +1,8 @@
 let pos;
 let vel;
 let acc;
-let rad = 30;
+let rad = 50;
 let centerToMouse;
-let centerToVel;
-let centerToAcc;
 let mouse;
 let center;
 
@@ -28,8 +26,8 @@ function reset() {
   mouse = createVector(mouseX, mouseY);
   center = createVector(rad.x, rad.y);
   centerToMouse = createVector();
-  centerToVel = createVector();
-  centerToAcc = createVector();
+  //centerToVel = createVector();
+  //centerToAcc = createVector();
 }
 
 function update() {
@@ -38,14 +36,14 @@ function update() {
   acc = p5.Vector.random2D();
   acc.mult(random);
   vel.add(acc);
-  vel.limit(8);
+  vel.limit(10);
   pos.add(vel);
   mouse.set(mouseX, mouseY);
   //centerToVel.limit(2);
   //centerToAcc.limit(2);
   centerToMouse = p5.Vector.sub(mouse, center);
-  centerToAcc = p5.Vector.sub(mouse, center);
-  centerToVel = p5.Vector.sub(mouse, center);
+  centerToAcc = p5.Vector.sub(acc, center);
+  centerToVel = p5.Vector.sub(vel, center);
 
   //mouse.sub(center);
   //vel.sub(center);

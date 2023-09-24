@@ -1,10 +1,8 @@
 let pos;
 let vel;
 let acc;
-let rad = 30;
+let rad = 50;
 let centerToMouse;
-let centerToVel;
-let centerToAcc;
 let mouse;
 let center;
 
@@ -28,28 +26,19 @@ function reset() {
   mouse = createVector(mouseX, mouseY);
   center = createVector(rad.x, rad.y);
   centerToMouse = createVector();
-  centerToVel = createVector();
-  centerToAcc = createVector();
 }
 
 function update() {
-  acc.mult(1 / 100);
-  vel.mult(1 / 10);
   acc = p5.Vector.random2D();
   acc.mult(random);
   vel.add(acc);
-  vel.limit(8);
+  vel.limit(10);
   pos.add(vel);
   mouse.set(mouseX, mouseY);
-  //centerToVel.limit(2);
-  //centerToAcc.limit(2);
   centerToMouse = p5.Vector.sub(mouse, center);
-  centerToAcc = p5.Vector.sub(mouse, center);
-  centerToVel = p5.Vector.sub(mouse, center);
-
-  //mouse.sub(center);
-  //vel.sub(center);
-  //acc.sub(center);
+  mouse.sub(center);
+  vel.sub(center);
+  acc.sub(center);
 }
 
 function infiniteEdge() {
@@ -70,26 +59,20 @@ function display() {
   noStroke();
   fill(0);
   circle(pos.x, pos.y, 2 * rad);
-
   //마우스선
   translate(rad.x, rad.y);
   stroke(200);
   strokeWeight(2);
   line(pos.x, pos.y, mouse.x, mouse.y);
 
-  //가속도(acc)선
-  acc.mult(100);
-
-  translate(rad.x, rad.y);
-  stroke('red');
-  strokeWeight(2);
-  line(pos.x, pos.y, acc.x, acc.y);
-
-  //속도(vel)선
-  vel.mult(10);
-
-  translate(rad.x, rad.y);
-  stroke('blue');
-  strokeWeight(2);
-  line(pos.x, pos.y, vel.x, vel.y);
+  ////속도(vel)선
+  //translate(rad.x, rad.y);
+  //stroke('blue');
+  //strokeWeight(2);
+  //line(pos.x, pos.y, vel.x, vel.y);
+  ////가속도(acc)선
+  //translate(rad.x, rad.y);
+  //stroke('red');
+  //strokeWeight(2);
+  //line(pos.x, pos.y, acc.x, acc.y);
 }
