@@ -33,16 +33,16 @@ function reset() {
 }
 
 function update() {
-  acc = p5.Vector.random2D();
-  acc.mult(random);
-  vel.add(acc);
-  vel.limit(8);
-  pos.add(vel);
   mouse.set(mouseX, mouseY);
   centerToMouse = p5.Vector.sub(mouse, center);
   centerToAcc = p5.Vector.sub(acc, center);
   centerToVel = p5.Vector.sub(vel, center);
 
+  acc = p5.Vector.random2D();
+  acc.mult(random);
+  vel.add(acc);
+  vel.limit(8);
+  pos.add(vel);
   //mouse.sub(center);
   //vel.sub(center);
   //acc.sub(center);
