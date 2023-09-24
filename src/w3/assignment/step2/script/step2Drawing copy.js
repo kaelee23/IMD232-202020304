@@ -1,12 +1,12 @@
 let pos;
 let vel;
 let acc;
-let rad = 30;
+let mouse;
+let center;
 let centerToMouse;
 let centerToVel;
 let centerToAcc;
-let mouse;
-let center;
+let rad = 30;
 
 function setup() {
   setCanvasContainer('canvas', 3, 2, true);
@@ -39,8 +39,6 @@ function update() {
   vel.limit(8);
   pos.add(vel);
   mouse.set(mouseX, mouseY);
-  //centerToVel.limit(2);
-  //centerToAcc.limit(2);
   centerToMouse = p5.Vector.sub(mouse, center);
   centerToAcc = p5.Vector.sub(acc, center);
   centerToVel = p5.Vector.sub(vel, center);
@@ -78,7 +76,6 @@ function display() {
   //가속도(acc)선
   centerToAcc.normalize();
   centerToAcc.mult(100);
-
   translate(rad.x, rad.y);
   stroke('red');
   strokeWeight(2);
@@ -87,7 +84,6 @@ function display() {
   //속도(vel)선
   centerToVel.normalize();
   centerToVel.mult(10);
-
   translate(rad.x, rad.y);
   stroke('blue');
   strokeWeight(2);
