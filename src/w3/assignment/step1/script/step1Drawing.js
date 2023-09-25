@@ -3,7 +3,7 @@ let vel;
 let acc;
 let mouse;
 let center;
-let rad = 30;
+let rad = 25;
 
 function setup() {
   setCanvasContainer('canvas', 3, 2, true);
@@ -52,12 +52,12 @@ function infiniteEdge() {
 }
 
 function display() {
-  // 원
+  //원
   noStroke();
   fill(0);
   circle(pos.x, pos.y, 2 * rad);
 
-  // 마우스
+  //마우스
   stroke(100);
   strokeWeight(2);
   line(pos.x, pos.y, mouse.x, mouse.y);
@@ -67,7 +67,7 @@ function display() {
   strokeWeight(2);
   line(pos.x, pos.y, pos.x + acc.x * 100, pos.y + acc.y * 100);
 
-  // 속도
+  //속도
   stroke('blue');
   strokeWeight(2);
   line(pos.x, pos.y, pos.x + vel.x * 10, pos.y + vel.y * 10);

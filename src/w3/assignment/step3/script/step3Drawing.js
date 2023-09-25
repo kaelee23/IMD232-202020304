@@ -6,6 +6,7 @@ let center;
 let rad = 25;
 let posToMouse;
 let velTopos;
+let mouseIsPressed;
 
 function setup() {
   setCanvasContainer('canvas', 3, 2, true);
@@ -23,13 +24,18 @@ function reset() {
   pos = createVector(random(width), random(height));
   vel = createVector();
   acc = createVector();
-  center = createVector(rad.x, rad.y);
+  center = createVector(rad, rad);
   mouse = createVector();
 }
 
 function update() {
   mouse.set(mouseX, mouseY);
   posToMouse = p5.Vector.sub(mouse, pos);
+
+  if (mouseIsPressed) {
+    posToMouse.mult(-1);
+  }
+
   posToMouse.add(2);
   velTopos = p5.Vector.sub(posToMouse, vel);
   velTopos.limit(0.1);
@@ -42,6 +48,10 @@ function update() {
 }
 
 function display() {
+  noStroke();
+  fill('red');
+  circle(mouseX, mouseY, 20);
+
   //원
   noStroke();
   fill(0);
