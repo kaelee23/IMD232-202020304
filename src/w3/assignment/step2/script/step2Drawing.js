@@ -42,11 +42,18 @@ function update() {
 }
 
 function display() {
+  //원
   noStroke();
   fill(0);
   circle(pos.x, pos.y, 2 * rad);
 
+  //마우스
   stroke(100);
   strokeWeight(2);
   line(pos.x, pos.y, mouseX, mouseY);
+
+  // 속도
+  stroke('blue');
+  strokeWeight(2);
+  line(pos.x, pos.y, pos.x + vel.x * 10, pos.y + vel.y * 10);
 }
