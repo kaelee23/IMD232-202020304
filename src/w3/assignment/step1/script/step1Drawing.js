@@ -39,7 +39,7 @@ function update() {
   centerToVel = p5.Vector.sub(vel, center);
 
   acc = p5.Vector.random2D();
-  acc.mult(random);
+  acc.mult(random());
   vel.add(acc);
   vel.limit(8);
   pos.add(vel);
