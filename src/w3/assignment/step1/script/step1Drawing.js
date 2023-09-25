@@ -23,7 +23,7 @@ function reset() {
   vel = createVector();
   acc = createVector();
   mouse = createVector(mouseX, mouseY);
-  center = createVector(rad, rad);
+  center = createVector(rad.x, rad.y);
 }
 
 function update() {

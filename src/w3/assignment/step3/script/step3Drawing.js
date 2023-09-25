@@ -24,7 +24,7 @@ function reset() {
   pos = createVector(random(width), random(height));
   vel = createVector();
   acc = createVector();
-  center = createVector(rad, rad);
+  center = createVector(rad.x, rad.y);
   mouse = createVector();
 }
 
