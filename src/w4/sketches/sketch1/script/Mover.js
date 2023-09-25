@@ -1,12 +1,9 @@
-function setup() {
-  setCanvasContainer('canvas', 3, 2, true);
-
-  background(255);
-  noStroke();
-  fill('red');
-}
-
-function draw() {
-  background(255);
-  circle(mouseX, mouseY, 50);
+class Mover {
+  constructor(x, y, radius) {
+    this.pos = createVector(x, y);
+    this.vel = createVector(0, 0);
+    this.acc = createVector(0, 0);
+    this.radius = radius;
+    this.mass = radius ** (1 / 2);
+  }
 }
