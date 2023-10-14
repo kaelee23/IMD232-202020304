@@ -33,7 +33,7 @@ function update() {
   posToMouse = p5.Vector.sub(mouse, pos);
 
   if (mouseIsPressed) {
-    posToMouse.mult(-5);
+    posToMouse.mult(-2);
   }
 
   posToMouse.add(2);
