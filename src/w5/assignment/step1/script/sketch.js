@@ -1,12 +1,29 @@
-function setup() {
-  setCanvasContainer('anyname', 3, 2, true);
+const cNum = 8;
+const rNum = 8;
+let gridC;
+let gridR;
+let angleBegin = 0;
+let angleBeginVel;
+let angleStep;
 
-  background(255);
-  noStroke();
-  fill('red');
+function setup() {
+  setCanvasContainer('canvas', 1, 1, true);
+
+  colorMode(HSL, 360, 100, 100, 100);
+  background(360, 0, 100);
 }
 
 function draw() {
-  background(255);
-  circle(mouseX, mouseY, 50);
+  background(360, 0, 100);
+
+  for (let r = 0; r < rNum; r++) {
+    for (let c = 0; c < cNum; c++) {
+      push();
+      translate();
+      rotate();
+      pop();
+    }
+  }
+
+  angleBegin += angleBeginVel;
 }
