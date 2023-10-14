@@ -7,7 +7,7 @@ let initialPos;
 
 function setup() {
   createCanvas(400, 400);
-  mover = new Mover(width / 2, height / 2, 40); // Increased the size to 40
+  mover = new Mover(width / 2, height / 2, 40);
   gravity = createVector(0, 0.2);
   mVec = createVector();
   pMVec = createVector();
@@ -24,11 +24,8 @@ function draw() {
     mover.edgeBounce();
     mover.display();
   } else {
-    // Calculate the direction from the current position to the mouse
     const direction = createVector(mouseX - mover.pos.x, mouseY - mover.pos.y);
-
-    // Scale the direction vector to increase the force (acceleration)
-    const dragForce = direction.copy().normalize().mult(0.2); // You can adjust this value to control the acceleration
+    const dragForce = direction.copy().normalize().mult(0.2);
 
     mover.applyForce(dragForce);
     mover.update();

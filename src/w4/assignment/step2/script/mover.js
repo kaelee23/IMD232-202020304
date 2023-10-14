@@ -4,7 +4,7 @@ class Mover {
     this.vel = createVector();
     this.acc = createVector();
     this.mass = mass;
-    this.rad = mass; // Increased the size to 40
+    this.rad = mass;
     this.isHover = false;
   }
 
@@ -32,7 +32,6 @@ class Mover {
       this.pos.y = height - 1 - this.rad;
       this.vel.y *= bounce;
     } else if (this.pos.y < this.rad) {
-      // Gradually return to the initial position if out of bounds at the top
       const returnForce = createVector(
         initialPos.x - this.pos.x,
         initialPos.y - this.pos.y
