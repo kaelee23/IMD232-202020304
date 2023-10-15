@@ -23,15 +23,19 @@ function draw() {
 
       if (a % 2 == 0) {
         if (b % 2 == 0) {
-          stroke(210, 100, 50);
+          //빨강
+          stroke(0, 100, 80);
         } else {
-          stroke(100, 100, 40);
+          //노랑
+          stroke(50, 100, 60);
         }
       } else {
         if (b % 2 == 0) {
-          stroke(0, 100, 80);
+          //파랑
+          stroke(210, 100, 50);
         } else {
-          stroke(50, 100, 60);
+          //초록
+          stroke(100, 100, 40);
         }
       }
       ellipse(x, y, 40);
