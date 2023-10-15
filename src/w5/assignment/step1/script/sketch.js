@@ -18,17 +18,17 @@ function draw() {
     for (let b = 0; b < cNum; b++) {
       //stroke((360 / rNum) * a, (100 / cNum) * b, 0);
       stroke(0);
-      let x = (width / (cNum + 1)) * (b + 1);
-      let y = (height / (rNum + 1)) * (a + 1);
+      let x = ((b + 1) * width) / (cNum + 1);
+      let y = ((a + 1) * height) / (rNum + 1);
 
-      if (a % 2 === 0) {
-        if (b % 2 === 0) {
+      if (a % 2 == 0) {
+        if (b % 2 == 0) {
           stroke(210, 100, 50);
         } else {
           stroke(100, 100, 40);
         }
       } else {
-        if (b % 2 === 0) {
+        if (b % 2 == 0) {
           stroke(0, 100, 80);
         } else {
           stroke(50, 100, 60);
