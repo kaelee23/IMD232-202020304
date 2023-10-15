@@ -1,33 +1,23 @@
-const cNum = 8;
 const rNum = 8;
-let gridC;
-let gridR;
-let angleBeginVel;
-let angleBegin = 0;
-let angleStep;
+const cNum = 8;
+const angleBegin = 2;
+const rGap = 1;
 
 function setup() {
-  setCanvasContainer('canvas', 1, 1, true);
+  setCanvasContainer('canvas', 3, 2, true);
 
-  colorMode(HSL, 360, 100, 100, 100);
-  background(360, 0, 100);
+  background(255);
 }
-
 function draw() {
-  background(360, 0, 100);
+  background(255);
 
-  for (let r = 0; r < rNum; r++) {
-    for (let c = 0; c < cNum; c++) {
-      stroke((360 / rNum) * r, (360 / cNum) * c, 360);
-      let x = ((r + 1) * width) / (rNum + 1);
-      let y = ((c + 1) * hight) / (cNum + 1);
-      ellipse(x, y, 8);
-      //push();
-      //translate();
-      //rotate();
-      //pop();
+  rectMode(CENTER);
+  for (let a = 0; a < rNum; a++) {
+    for (let b = 0; b < cNum; b++) {
+      stroke((255 / rNum) * a, (255 / cNum) * b, 255);
+      let x = ((a + 1) * width) / (rNum + 1);
+      let y = ((b + 1) * height) / (cNum + 1);
+      ellipse(x, y, 10);
     }
   }
-
-  //angleBegin += angleBeginVel;
 }
