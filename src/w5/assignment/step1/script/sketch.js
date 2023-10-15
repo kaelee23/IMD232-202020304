@@ -1,6 +1,7 @@
 const rNum = 8;
 const cNum = 8;
-let angleBegin = 0;
+let angleBegin = 15;
+let angleBeginVel = 3;
 let angleStep = 15;
 
 function setup() {
@@ -52,5 +53,5 @@ function draw() {
     }
   }
 
-  angleBegin += angleStep;
+  angleBegin += angleBeginVel;
 }
