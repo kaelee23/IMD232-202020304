@@ -1,15 +1,18 @@
 let moverA;
 let gravity;
-let isDragging;
+let drag;
 let pmouseX;
 let pmouseY;
+let 
 
 function setup() {
   setCanvasContainer('canvas', 3, 2, true);
   background(255);
-  moverA = new Mover(width / 3, height / 2, 10);
+  moverA = new Mover(width / 2, height / 2, 10);
   gravity = createVector(0, 0.1);
-  isDragging = false;
+  mVec=createVector(pmouseX, pmouseY);
+  pMVec=createVector(mouseX - pmouseX, mouseY - pmouseY);
+  drag = false;
 }
 
 function draw() {
@@ -19,29 +22,23 @@ function draw() {
   gravityA.mult(moverA.mass);
   moverA.applyForce(gravityA);
 
-  // Check if the mouse is pressed and inside the canvas
   if (mouseIsPressed && isMouseInsideCanvas()) {
-    if (!isDragging) {
-      // Start dragging, store the initial mouse position
-      isDragging = true;
+    if (!drag) {
+      drag = true;
       pmouseX = mouseX;
       pmouseY = mouseY;
     }
 
-    // Calculate the drag force based on mouse movement
     const dragForce = createVector(mouseX - pmouseX, mouseY - pmouseY);
-    dragForce.mult(0.15);
+    dargForce = p5.Vector.sub(mVec, pMVec);
+    dragForce.mult(0.2);
 
     moverA.applyForce(dragForce);
   } else {
-    isDragging = false;
+    drag = false;
   }
 
   moverA.update();
   moverA.checkEdges();
   moverA.display();
-
-  // Update the previous mouse position
-  pmouseX = mouseX;
-  pmouseY = mouseY;
 }
