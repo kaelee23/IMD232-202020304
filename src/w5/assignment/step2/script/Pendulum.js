@@ -14,6 +14,7 @@ class Pendulum {
     this.draggingOffset = createVector();
     this.isHover = false;
     this.isDragging = false;
+    this.pendulumA = null;
   }
 
   applyGravity(gravity) {
@@ -62,6 +63,8 @@ class Pendulum {
       this.angleVel = 0;
       this.draggingOffset.set(mX - this.ballPos.x, mY - this.ballPos.y);
     }
+
+    this.pos.set(this.pendulumA.ballPos.x, this.pendulumA.ballPos.y);
   }
 
   mouseDragged(mX, mY) {
@@ -76,15 +79,12 @@ class Pendulum {
       );
       this.angle = angle;
     }
+    //this.pos.set(this.pendulumA.ballPos.x, this.pendulumA.ballPos.y);
   }
 
   mouseReleased() {
     this.isDragging = false;
   }
-
-  //connect(pendulumB) {
-  //  this.pendulumA.ballPos = pendulumB;
-  //}
 
   connect(pendulumB) {
     this.pendulumA = pendulumB;

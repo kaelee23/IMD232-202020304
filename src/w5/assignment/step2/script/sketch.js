@@ -17,6 +17,7 @@ function setup() {
 
 function draw() {
   pendulumA.applyGravity(gravity);
+  pendulumB.applyGravity(gravity);
   pendulumA.update();
   pendulumB.update();
   background(255);
