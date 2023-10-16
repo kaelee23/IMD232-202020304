@@ -86,20 +86,6 @@ class Pendulum {
   //  this.pendulumA.ballPos = pendulumB;
   //}
 
-  //connect(pendulumB) {
-  //  this.pendulumA = pendulumB;
-  //  // Set the ballPos of pendulum B to the center of pendulum A
-  //  //pendulumB.ballPos.set(this.pos.x, this.pos.y);
-  //  pos.set(this.pos.x, this.pos.y);
-  //  pendulumB.ballPos.set(this.pos.x, this.pos.y);
-  //}
-  //connect(pendulumB) {
-  //  this.pendulumA = pendulumB;
-  //  pendulumB.pendulumB;
-  //
-  //  pos.set(this.pos.x, this.pos.y);
-  //  pendulumB.ballPos.set(this.pos.x, this.pos.y);
-  //}
   connect(pendulumB) {
     this.pendulumA = pendulumB;
     this.pos.set(this.pendulumA.ballPos.x, this.pendulumA.ballPos.y);
