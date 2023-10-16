@@ -86,6 +86,7 @@ class Pendulum {
 
   mouseReleased() {
     this.isDragging = false;
+    this.pendulumA.pos.set(this.ballPos.x, this.ballPos.y);
   }
 
   connect(pendulumB) {

@@ -1,3 +1,6 @@
+//교수님 한번만 가운데 원 눌러주세요
+//작동이 되긴해요..물론..가운데만..
+
 let pendulumA;
 let pendulumB;
 let gravity;
