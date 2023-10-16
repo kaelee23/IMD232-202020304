@@ -1,12 +1,11 @@
+let particle = [];
+
 function setup() {
-  setCanvasContainer('canvas', 3, 2, true);
+  setCanvasContainer('canvas', 2, 1, true);
 
-  background(255);
-  noStroke();
-  fill('red');
-}
+  colorMode(HSL, 360, 100, 100);
+  particle = new Ball(width / 2, 0, 1, 0, 50);
 
-function draw() {
-  background(255);
-  circle(mouseX, mouseY, 50);
+  background('white');
 }
+function draw() {}
