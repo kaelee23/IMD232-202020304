@@ -1,3 +1,4 @@
+let emitter;
 let particle = [];
 
 function setup() {
@@ -5,7 +6,16 @@ function setup() {
 
   colorMode(HSL, 360, 100, 100);
   particle = new Ball(width / 2, 0, 1, 0, 50);
+  emitter = new Emitter(width / 2, 0);
+
+  g = createVector(0, 0.1);
 
   background('white');
 }
-function draw() {}
+function draw() {
+  background('white');
+  const scaledG = p5.Vector.mult(g, particle.mass);
+  particle.applyForce();
+  particle.update();
+  particle.display();
+}

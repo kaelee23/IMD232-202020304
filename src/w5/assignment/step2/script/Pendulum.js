@@ -102,7 +102,6 @@ class Pendulum {
   //}
   connect(pendulumB) {
     this.pendulumA = pendulumB;
-
-    this.pos.set(pendulumB.ballPos.x, pendulumB.ballPos.y);
+    this.pos.set(this.pendulumA.ballPos.x, this.pendulumA.ballPos.y);
   }
 }
