@@ -54,6 +54,7 @@ class Pendulum {
   mouseMoved(mX, mY) {
     this.isHover =
       (this.ballPos.x - mX) ** 2 + (this.ballPos.y - mY) ** 2 <= this.rad ** 2;
+    this.pendulumA.pos.set(this.ballPos.x, this.ballPos.y);
   }
 
   mousePressed(mX, mY) {
@@ -63,7 +64,6 @@ class Pendulum {
       this.angleVel = 0;
       this.draggingOffset.set(mX - this.ballPos.x, mY - this.ballPos.y);
 
-      // Update the position of the first pendulum's rotation axis
       this.pendulumA.pos.set(this.ballPos.x, this.ballPos.y);
     }
   }
@@ -80,7 +80,6 @@ class Pendulum {
       );
       this.angle = angle;
 
-      // Update the position of the first pendulum's rotation axis
       this.pendulumA.pos.set(this.ballPos.x, this.ballPos.y);
     }
   }
@@ -92,6 +91,6 @@ class Pendulum {
   connect(pendulumB) {
     this.pendulumA = pendulumB;
 
-    this.pendulumA.pos.set(this.ballPos.x, this.ballPos.y); // Update the position of the connected pendulum
+    this.pendulumA.pos.set(this.ballPos.x, this.ballPos.y);
   }
 }
