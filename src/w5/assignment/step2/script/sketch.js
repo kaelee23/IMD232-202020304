@@ -32,18 +32,32 @@ function mouseMoved() {
   pendulumA.mouseMoved(mouseX, mouseY);
   pendulumB.mouseMoved(mouseX, mouseY);
 }
-
+function reset() {
+  pendulumA.mouseReleased();
+  pendulumB.mouseReleased(pendulumA.ballPos.x, pendulumA.ballPos.y);
+}
 function mousePressed() {
   pendulumA.mousePressed(mouseX, mouseY);
   pendulumB.mousePressed(mouseX, mouseY);
 }
-
+function reset() {
+  pendulumA.mouseReleased();
+  pendulumB.mouseReleased(pendulumA.ballPos.x, pendulumA.ballPos.y);
+}
 function mouseDragged() {
   pendulumA.mouseDragged(mouseX, mouseY);
   pendulumB.mouseDragged(mouseX, mouseY);
 }
-
+function reset() {
+  pendulumA.mouseReleased();
+  pendulumB.mouseReleased(pendulumA.ballPos.x, pendulumA.ballPos.y);
+}
 function mouseReleased() {
   pendulumA.mouseReleased();
   pendulumB.mouseReleased();
+}
+
+function reset() {
+  pendulumA.mouseReleased();
+  pendulumB.mouseReleased(pendulumA.ballPos.x, pendulumA.ballPos.y);
 }
