@@ -23,7 +23,7 @@ class Particle {
     this.rotation += this.rotationSpeed;
 
     if (this.pos.y > height + 20) {
-      this.byeRect = 0;
+      this.byeRect < 0;
     }
   }
 
@@ -38,6 +38,6 @@ class Particle {
   }
 
   isDead() {
-    return this.byeRect <= 0;
+    return this.byeRect < 0;
   }
 }
