@@ -33,7 +33,7 @@ class Particle {
     rotate(this.rotation);
     noStroke();
     fill(this.color, this.lifespan);
-    rect(0, 0, 8, 8);
+    rect(0, 0, 10, 10);
     pop();
   }
 
