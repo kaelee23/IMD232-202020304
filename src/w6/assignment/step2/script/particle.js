@@ -18,7 +18,7 @@ class Particle {
   update() {
     this.vel.add(this.acc);
     this.pos.add(this.vel);
-    this.lifespan -= 1.0;
+    this.lifespan -= 1.0; // 각 프레임마다 1씩 감소
     this.acc.mult(0);
   }
 
