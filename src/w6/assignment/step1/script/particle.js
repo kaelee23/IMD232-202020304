@@ -3,7 +3,7 @@ class Particle {
     this.pos = createVector(x, y);
     this.vel = createVector(0, 1);
     this.acc = createVector(0, 0.05);
-    this.lifespan = 255.0;
+    this.byeRect = 255.0;
     this.color = color(random(255), random(255), random(255));
     this.rotation = 0;
     this.rotationSpeed = rotationSpeed;
@@ -18,12 +18,12 @@ class Particle {
     this.pos.x += this.vel.x;
     this.pos.y += this.vel.y;
     this.vel.add(this.acc);
-    this.lifespan -= 2.0;
+    this.byeRect -= 2.0;
 
     this.rotation += this.rotationSpeed;
 
     if (this.pos.y > height + 20) {
-      this.lifespan = 0;
+      this.byeRect = 0;
     }
   }
 
@@ -32,12 +32,12 @@ class Particle {
     translate(this.pos.x, this.pos.y);
     rotate(this.rotation);
     noStroke();
-    fill(this.color, this.lifespan);
+    fill(this.color, this.byeRect);
     rect(0, 0, 10, 10);
     pop();
   }
 
   isDead() {
-    return this.lifespan <= 0.0;
+    return this.byeRect <= 0;
   }
 }
