@@ -8,11 +8,17 @@ function draw() {
   background(255);
 
   for (let i = emitters.length - 1; i >= 0; i--) {
-    emitters[i].addParticle();
     emitters[i].run();
+    if (emitters[i].particles.length === 0) {
+      emitters.splice(i, 1);
+    }
   }
 }
 
 function mousePressed() {
-  emitters.push(new Emitter(mouseX, mouseY));
+  let emitter = new Emitter(mouseX, mouseY);
+  for (let i = 0; i < 100; i++) {
+    emitter.addParticle();
+  }
+  emitters.push(emitter); // emitters 배열에 새 Emitter 추가
 }
