@@ -1,4 +1,4 @@
-let emitters = []; // emitters 배열을 선언
+let emitters = [];
 
 function setup() {
   setCanvasContainer('canvas', 2, 1, true);
@@ -20,5 +20,5 @@ function mousePressed() {
   for (let i = 0; i < 100; i++) {
     emitter.addParticle();
   }
-  emitters.push(emitter); // emitters 배열에 새 Emitter 추가
+  emitters.push(emitter);
 }
