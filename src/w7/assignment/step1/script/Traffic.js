@@ -3,6 +3,7 @@ class Traffic {
     this.vehicles = [];
   }
 
+  // 모든 차량에 대해 실행
   run() {
     this.vehicles.forEach((eachVehicle) => {
       const separate = eachVehicle.separate(this.vehicles);
@@ -20,8 +21,8 @@ class Traffic {
     });
   }
 
+  // 새로운 차량 추가
   addVehicle(x, y) {
-    // const mass = floor(random(1, 3));
     const mass = 1;
     this.vehicles.push(
       new Vehicle(x, y, mass, mass * 12, 5, 0.1, color(random(360), 100, 40))
