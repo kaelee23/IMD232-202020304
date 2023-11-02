@@ -3,7 +3,7 @@ class Traffic {
     this.vehicles = [];
   }
 
-  // 모든 차량에 대해 실행
+  //모든 차량에 대해 실행
   run() {
     this.vehicles.forEach((eachVehicle) => {
       const separate = eachVehicle.separate(this.vehicles);
@@ -21,7 +21,7 @@ class Traffic {
     });
   }
 
-  // 새로운 차량 추가
+  //새로운 차량 추가
   addVehicle(x, y) {
     const mass = 1;
     this.vehicles.push(
