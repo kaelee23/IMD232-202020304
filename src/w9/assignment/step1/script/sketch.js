@@ -22,9 +22,9 @@ var render = Render.create({
   options: {
     width: 800,
     height: 600,
-    showAngleIndicator: true,
-    showCollisions: true,
-    showVelocity: true,
+    showAngleIndicator: false,
+    showCollisions: false,
+    showVelocity: false,
   },
 });
 
@@ -91,25 +91,29 @@ Composite.add(
 var groupC = Body.nextGroup(true);
 
 var ropeC = Composites.stack(600, 50, 13, 1, 10, 10, function (x, y) {
-  return Bodies.rectangle(x - 20, y, 50, 20, {
+  return Bodies.rectangle(x, y, 50, 20, {
     collisionFilter: { group: groupC },
-    chamfer: 5,
-    render: { fillStyle: 'green' },
+    render: { fillStyle: 'orange' },
   });
 });
 
 // ropeC에 대한 체인과 제약 설정
-Composites.chain(ropeC, 0.3, 0, -0.3, 0, { stiffness: 1, length: 0 });
+Composites.chain(ropeC, 0.5, 0, -0.5, 0, {
+  stiffness: 0.8,
+  length: 2,
+  render: { type: 'line' },
+});
 Composite.add(
   ropeC,
   Constraint.create({
     bodyB: ropeC.bodies[0],
-    pointB: { x: -20, y: 0 },
+    pointB: { x: -25, y: 0 },
     pointA: { x: ropeC.bodies[0].position.x, y: ropeC.bodies[0].position.y },
     stiffness: 0.5,
   })
 );
-
+//
+//건들지 않기
 // 월드에 바디 추가
 Composite.add(world, [
   ropeA,

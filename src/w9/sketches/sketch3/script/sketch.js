@@ -18,24 +18,30 @@ var engine = Engine.create(),
 var runner = Runner.create();
 
 let rock;
+let anchor;
+let elastic;
 
 function setup() {
-  setCanvasContainer('canvas', 800, 600, ture);
+  setCanvasContainer('canvas', 800, 600, true); // Fix 'ture' to 'true'
 
   // add bodies
   var ground = Bodies.rectangle(395, 600, 815, 50, {
-      isStatic: true,
-      render: { fillStyle: '#060a19' },
-    }),
-    rock = Bodies.polygon(170, 450, 8, 20, rockOptions, { density: 0.004 });
-  (anchor = { x: 170, y: 450 }),
-    (elastic = Constraint.create({
-      pointA: anchor,
-      bodyB: rock,
-      length: 0.01,
-      damping: 0.01,
-      stiffness: 0.05,
-    }));
+    isStatic: true,
+    render: { fillStyle: '#060a19' },
+  });
+
+  rock = Bodies.polygon(170, 450, 8, 20, { density: 0.004 }); // Removed 'rockOptions'
+
+  anchor = { x: 170, y: 450 }; // Moved anchor declaration here
+
+  elastic = Constraint.create({
+    pointA: anchor,
+    bodyB: rock,
+    length: 0.01,
+    damping: 0.01,
+    stiffness: 0.05,
+  }); // Fixed parentheses issue
+
   var pyramid = Composites.pyramid(500, 300, 9, 10, 0, 0, function (x, y) {
     return Bodies.rectangle(x, y, 25, 40);
   });
@@ -58,7 +64,8 @@ function setup() {
     pyramid2,
     rock,
     elastic,
-  ]);
+  ]); // Removed rockOptions
+
   // add mouse control
   var mouse = Mouse.create(document.querySelector('.p5Canvas')),
     mouseConstraint = MouseConstraint.create(engine, {
@@ -70,6 +77,7 @@ function setup() {
         },
       },
     });
+
   background('white');
 }
 
@@ -77,9 +85,9 @@ function draw() {
   background('white');
   beginShape();
   rock.vertices.forEach((each) => {
-    vertex(each);
+    vertex(each.x, each.y); // Corrected vertex usage
   });
-  ehdShape(CLOSE);
+  endShape(CLOSE); // Fixed 'ehdShape' to 'endShape'
 }
 
 // create renderer
@@ -93,6 +101,7 @@ var render = Render.create({
     showAngleIndicator: true,
   },
 });
+
 //Render.run(render);
 
 //Events.on(engine, 'afterUpdate', function () {
