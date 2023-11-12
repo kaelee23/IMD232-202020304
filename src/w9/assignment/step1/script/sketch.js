@@ -16,7 +16,7 @@ let engine = Engine.create(),
   world = engine.world;
 
 // create renderer
-let canvas;
+
 let render;
 function setup() {
   setCanvasContainer('canvas', 3, 2, true);
@@ -24,9 +24,9 @@ function setup() {
     element: canvas.canvas,
     engine: engine,
     options: {
-      showAngleIndicator: true,
-      showCollisions: true,
-      showVelocity: true,
+      //showAngleIndicator: true,
+      //showCollisions: true,
+      //showVelocity: true,
     },
   });
 
