@@ -7,8 +7,6 @@ let {
   MouseConstraint,
   Mouse,
   Bodies,
-  Render,
-  Runner,
 } = Matter;
 
 let engine, world, render, runner;
