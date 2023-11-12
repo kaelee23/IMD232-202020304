@@ -23,7 +23,7 @@ let engine = Engine.create(),
 function setup() {
   setCanvasContainer('canvas', 3, 2, true);
 
-  rectMode(CENTER);
+  //rectMode(CENTER);
 
   // 옵션과정 1: 물체 만들기
   group = Body.nextGroup(true);
@@ -97,25 +97,23 @@ function setup() {
     Bodies.rectangle(400, 600, 1200, 50.5, { isStatic: true }),
   ]);
 
-  console.log(ground);
-
-  // 필수과정 5: 자동 뺑뺑이에게 엔진을 등록해서 ㄱㄱㄱ
-  // Runner.run(runner, engine);
+  background(255);
 }
 
-// create renderer
-const elem = document.querySelector('#canvas');
-let render = Render.create({
-  element: elem,
-  engine: engine,
-  options: {
-    width: 800,
-    height: 600,
-    //showAngleIndicator: true,
-    //showCollisions: true,
-    //showVelocity: true,
-  },
-});
+function draw() {
+  background(255);
+  fill('salmon');
+  ropeA.bodies.forEach((eachBody) => {
+    beginShape();
+    eachBody.vertices.forEach((eachVertex) => {
+      vertex(
+        (eachVertex.x / originalWidth) * width,
+        (eachVertex.y / originalHeight) * height
+      );
+    });
+    endShape(CLOSE);
+  });
+}
 
 Render.run(render);
 
