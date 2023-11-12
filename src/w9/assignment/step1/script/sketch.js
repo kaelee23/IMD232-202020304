@@ -13,18 +13,13 @@ let engine, world, render, runner;
 
 function setup() {
   setCanvasContainer('canvas', 3, 2, true);
-
-  engine = Engine.create();
-  world = engine.world;
-  render = Render.create({
-    element: document.body,
-    engine: engine,
-  });
-  runner = Runner.create();
+  // 바디 추가
+  // 주황색 도형 그룹
   background(255);
 }
 
 function draw() {
+  Engine.update(engine);
   background(255);
 
   groupA = Body.nextGroup(true);
