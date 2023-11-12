@@ -11,9 +11,97 @@ let {
   Bodies,
 } = Matter;
 
+let ropeA;
+let ropeB;
+let ropeC;
+let group = Body.nextGroup(true);
+
 // create engine
 let engine = Engine.create(),
   world = engine.world;
+
+function setup() {
+  setCanvasContainer('canvas', 3, 2, true);
+
+  rectMode(CENTER);
+
+  // 옵션과정 1: 물체 만들기
+  group = Body.nextGroup(true);
+
+  ropeA = Composites.stack(100, 50, 8, 1, 10, 10, function (x, y) {
+    return Bodies.rectangle(x, y, 50, 20, {
+      collisionFilter: { group: group },
+    });
+  });
+
+  Composites.chain(ropeA, 0.5, 0, -0.5, 0, {
+    stiffness: 0.8,
+    length: 2,
+    render: { type: 'line' },
+  });
+  Composite.add(
+    ropeA,
+    Constraint.create({
+      bodyB: ropeA.bodies[0],
+      pointB: { x: -25, y: 0 },
+      pointA: { x: ropeA.bodies[0].position.x, y: ropeA.bodies[0].position.y },
+      stiffness: 0.5,
+    })
+  );
+
+  group = Body.nextGroup(true);
+
+  ropeB = Composites.stack(350, 50, 10, 1, 10, 10, function (x, y) {
+    return Bodies.circle(x, y, 20, { collisionFilter: { group: group } });
+  });
+
+  Composites.chain(ropeB, 0.5, 0, -0.5, 0, {
+    stiffness: 0.8,
+    length: 2,
+    render: { type: 'line' },
+  });
+  Composite.add(
+    ropeB,
+    Constraint.create({
+      bodyB: ropeB.bodies[0],
+      pointB: { x: -20, y: 0 },
+      pointA: { x: ropeB.bodies[0].position.x, y: ropeB.bodies[0].position.y },
+      stiffness: 0.5,
+    })
+  );
+
+  group = Body.nextGroup(true);
+
+  ropeC = Composites.stack(600, 50, 13, 1, 10, 10, function (x, y) {
+    return Bodies.rectangle(x - 20, y, 50, 20, {
+      collisionFilter: { group: group },
+      chamfer: 5,
+    });
+  });
+
+  Composites.chain(ropeC, 0.3, 0, -0.3, 0, { stiffness: 1, length: 0 });
+  Composite.add(
+    ropeC,
+    Constraint.create({
+      bodyB: ropeC.bodies[0],
+      pointB: { x: -20, y: 0 },
+      pointA: { x: ropeC.bodies[0].position.x, y: ropeC.bodies[0].position.y },
+      stiffness: 0.5,
+    })
+  );
+
+  Composite.add(world, [
+    ropeA,
+    ropeB,
+    ropeC,
+    Bodies.rectangle(400, 600, 1200, 50.5, { isStatic: true }),
+  ]);
+
+  console.log(ground);
+
+  // 필수과정 5: 자동 뺑뺑이에게 엔진을 등록해서 ㄱㄱㄱ
+  // Runner.run(runner, engine);
+}
 
 // create renderer
 const elem = document.querySelector('#canvas');
@@ -36,76 +124,6 @@ let runner = Runner.create();
 Runner.run(runner, engine);
 
 // add bodies
-let group = Body.nextGroup(true);
-
-let ropeA = Composites.stack(100, 50, 8, 1, 10, 10, function (x, y) {
-  return Bodies.rectangle(x, y, 50, 20, {
-    collisionFilter: { group: group },
-  });
-});
-
-Composites.chain(ropeA, 0.5, 0, -0.5, 0, {
-  stiffness: 0.8,
-  length: 2,
-  render: { type: 'line' },
-});
-Composite.add(
-  ropeA,
-  Constraint.create({
-    bodyB: ropeA.bodies[0],
-    pointB: { x: -25, y: 0 },
-    pointA: { x: ropeA.bodies[0].position.x, y: ropeA.bodies[0].position.y },
-    stiffness: 0.5,
-  })
-);
-
-group = Body.nextGroup(true);
-
-let ropeB = Composites.stack(350, 50, 10, 1, 10, 10, function (x, y) {
-  return Bodies.circle(x, y, 20, { collisionFilter: { group: group } });
-});
-
-Composites.chain(ropeB, 0.5, 0, -0.5, 0, {
-  stiffness: 0.8,
-  length: 2,
-  render: { type: 'line' },
-});
-Composite.add(
-  ropeB,
-  Constraint.create({
-    bodyB: ropeB.bodies[0],
-    pointB: { x: -20, y: 0 },
-    pointA: { x: ropeB.bodies[0].position.x, y: ropeB.bodies[0].position.y },
-    stiffness: 0.5,
-  })
-);
-
-group = Body.nextGroup(true);
-
-let ropeC = Composites.stack(600, 50, 13, 1, 10, 10, function (x, y) {
-  return Bodies.rectangle(x - 20, y, 50, 20, {
-    collisionFilter: { group: group },
-    chamfer: 5,
-  });
-});
-
-Composites.chain(ropeC, 0.3, 0, -0.3, 0, { stiffness: 1, length: 0 });
-Composite.add(
-  ropeC,
-  Constraint.create({
-    bodyB: ropeC.bodies[0],
-    pointB: { x: -20, y: 0 },
-    pointA: { x: ropeC.bodies[0].position.x, y: ropeC.bodies[0].position.y },
-    stiffness: 0.5,
-  })
-);
-
-Composite.add(world, [
-  ropeA,
-  ropeB,
-  ropeC,
-  Bodies.rectangle(400, 600, 1200, 50.5, { isStatic: true }),
-]);
 
 // add mouse control
 let mouse = Mouse.create(render.canvas),

@@ -11,24 +11,35 @@ let {
   Bodies,
 } = Matter;
 
-let ropeA;
-let ropeB;
-let ropeC;
-let group = Body.nextGroup(true);
-
 // create engine
 let engine = Engine.create(),
   world = engine.world;
 
+// create renderer
+
+let render;
 function setup() {
   setCanvasContainer('canvas', 3, 2, true);
+  render = Render.create({
+    element: canvas.canvas,
+    engine: engine,
+    options: {
+      //showAngleIndicator: true,
+      //showCollisions: true,
+      //showVelocity: true,
+    },
+  });
 
-  rectMode(CENTER);
+  Render.run(render);
 
-  // 옵션과정 1: 물체 만들기
-  group = Body.nextGroup(true);
+  // create runner
+  let runner = Runner.create();
+  Runner.run(runner, engine);
 
-  ropeA = Composites.stack(100, 50, 8, 1, 10, 10, function (x, y) {
+  // add bodies
+  let group = Body.nextGroup(true);
+
+  let ropeA = Composites.stack(100, 50, 8, 1, 10, 10, function (x, y) {
     return Bodies.rectangle(x, y, 50, 20, {
       collisionFilter: { group: group },
     });
@@ -51,7 +62,7 @@ function setup() {
 
   group = Body.nextGroup(true);
 
-  ropeB = Composites.stack(350, 50, 10, 1, 10, 10, function (x, y) {
+  let ropeB = Composites.stack(350, 50, 10, 1, 10, 10, function (x, y) {
     return Bodies.circle(x, y, 20, { collisionFilter: { group: group } });
   });
 
@@ -72,7 +83,7 @@ function setup() {
 
   group = Body.nextGroup(true);
 
-  ropeC = Composites.stack(600, 50, 13, 1, 10, 10, function (x, y) {
+  let ropeC = Composites.stack(600, 50, 13, 1, 10, 10, function (x, y) {
     return Bodies.rectangle(x - 20, y, 50, 20, {
       collisionFilter: { group: group },
       chamfer: 5,
@@ -97,53 +108,31 @@ function setup() {
     Bodies.rectangle(400, 600, 1200, 50.5, { isStatic: true }),
   ]);
 
-  console.log(ground);
+  // add mouse control
+  let mouse = Mouse.create(render.canvas),
+    mouseConstraint = MouseConstraint.create(engine, {
+      mouse: mouse,
+      constraint: {
+        stiffness: 0.2,
+        render: {
+          visible: false,
+        },
+      },
+    });
 
-  // 필수과정 5: 자동 뺑뺑이에게 엔진을 등록해서 ㄱㄱㄱ
-  // Runner.run(runner, engine);
+  Composite.add(world, mouseConstraint);
+
+  // keep the mouse in sync with rendering
+  render.mouse = mouse;
+
+  // fit the render viewport to the scene
+  Render.lookAt(render, {
+    min: { x: 0, y: 0 },
+    max: { x: 700, y: 600 },
+  });
 }
 
-// create renderer
-const elem = document.querySelector('#canvas');
-let render = Render.create({
-  element: elem,
-  engine: engine,
-  options: {
-    width: 800,
-    height: 600,
-    //showAngleIndicator: true,
-    //showCollisions: true,
-    //showVelocity: true,
-  },
-});
-
-Render.run(render);
-
-// create runner
-let runner = Runner.create();
-Runner.run(runner, engine);
-
-// add bodies
-
-// add mouse control
-let mouse = Mouse.create(render.canvas),
-  mouseConstraint = MouseConstraint.create(engine, {
-    mouse: mouse,
-    constraint: {
-      stiffness: 0.2,
-      render: {
-        visible: false,
-      },
-    },
-  });
-
-Composite.add(world, mouseConstraint);
-
-// keep the mouse in sync with rendering
-render.mouse = mouse;
-
-// fit the render viewport to the scene
-Render.lookAt(render, {
-  min: { x: 0, y: 0 },
-  max: { x: 700, y: 600 },
-});
+function draw() {
+  background(255);
+  // p5.js draw loop
+}
