@@ -1,17 +1,7 @@
-// Matter.js 라이브러리 컴포넌트들
-//let Engine = Matter.Engine,
-//Render = Matter.Render,
-//Runner = Matter.Runner,
-//Body = Matter.Body,
-//Composite = Matter.Composite,
-//Composites = Matter.Composites,
-//Constraint = Matter.Constraint,
-//MouseConstraint = Matter.MouseConstraint,
-//Mouse = Matter.Mouse,
-//Bodies = Matter.Bodies;
-
 let {
   Engine,
+  Render,
+  Runner,
   Body,
   Composite,
   Composites,
@@ -21,135 +11,127 @@ let {
   Bodies,
 } = Matter;
 
-// 엔진 생성
+// create engine
 let engine = Engine.create(),
   world = engine.world;
 
-let groupA;
-let ropeA;
+function setup() {}
+function draw() {}
 
-let groupB;
-let ropeB;
+// create renderer
+const elem = document.querySelector('#canvas');
+let render = Render.create({
+  element: elem,
+  engine: engine,
+  options: {
+    width: 800,
+    height: 600,
+    //showAngleIndicator: false,
+    //showCollisions: false,
+    //showVelocity: false,
+  },
+});
 
-let groupC;
-let ropeC;
+Render.run(render);
 
-function setup() {
-  setCanvasContainer('canvas', 3, 2, true);
-  // 바디 추가
-  // 주황색 도형 그룹
-  groupA = Body.nextGroup(true);
+// create runner
+var runner = Runner.create();
+Runner.run(runner, engine);
 
-  ropeA = Composites.stack(100, 50, 8, 1, 10, 10, function (x, y) {
-    return Bodies.rectangle(x, y, 50, 20, {
-      collisionFilter: { group: groupA },
-      render: { fillStyle: 'orange' },
-    });
+// add bodies
+var group = Body.nextGroup(true);
+
+var ropeA = Composites.stack(100, 50, 8, 1, 10, 10, function (x, y) {
+  return Bodies.rectangle(x, y, 50, 20, {
+    collisionFilter: { group: group },
   });
-  // ropeA에 대한 체인과 제약 설정
-  Composites.chain(ropeA, 0.5, 0, -0.5, 0, {
-    stiffness: 0.8,
-    length: 2,
-    render: { type: 'line' },
+});
+
+Composites.chain(ropeA, 0.5, 0, -0.5, 0, {
+  stiffness: 0.8,
+  length: 2,
+  render: { type: 'line' },
+});
+Composite.add(
+  ropeA,
+  Constraint.create({
+    bodyB: ropeA.bodies[0],
+    pointB: { x: -25, y: 0 },
+    pointA: { x: ropeA.bodies[0].position.x, y: ropeA.bodies[0].position.y },
+    stiffness: 0.5,
+  })
+);
+
+group = Body.nextGroup(true);
+
+var ropeB = Composites.stack(350, 50, 10, 1, 10, 10, function (x, y) {
+  return Bodies.circle(x, y, 20, { collisionFilter: { group: group } });
+});
+
+Composites.chain(ropeB, 0.5, 0, -0.5, 0, {
+  stiffness: 0.8,
+  length: 2,
+  render: { type: 'line' },
+});
+Composite.add(
+  ropeB,
+  Constraint.create({
+    bodyB: ropeB.bodies[0],
+    pointB: { x: -20, y: 0 },
+    pointA: { x: ropeB.bodies[0].position.x, y: ropeB.bodies[0].position.y },
+    stiffness: 0.5,
+  })
+);
+
+group = Body.nextGroup(true);
+
+var ropeC = Composites.stack(600, 50, 9, 1, 10, 10, function (x, y) {
+  return Bodies.rectangle(x, y, 50, 20, {
+    collisionFilter: { group: group },
   });
-  Composite.add(
-    ropeA,
-    Constraint.create({
-      bodyB: ropeA.bodies[0],
-      pointB: { x: -25, y: 0 },
-      pointA: { x: ropeA.bodies[0].position.x, y: ropeA.bodies[0].position.y },
-      stiffness: 0.5,
-    })
-  );
+});
 
-  // 파란색 도형 그룹
-  groupB = Body.nextGroup(true);
+Composites.chain(ropeC, 0.5, 0, -0.5, 0, {
+  stiffness: 0.8,
+  length: 1,
+  render: { type: 'line' },
+});
+Composite.add(
+  ropeC,
+  Constraint.create({
+    bodyB: ropeC.bodies[0],
+    pointB: { x: -25, y: 0 },
+    pointA: { x: ropeC.bodies[0].position.x, y: ropeC.bodies[0].position.y },
+    stiffness: 0.5,
+  })
+);
 
-  ropeB = Composites.stack(350, 50, 10, 1, 10, 10, function (x, y) {
-    return Bodies.circle(x, y, 20, {
-      collisionFilter: { group: groupB },
-      render: { fillStyle: 'blue' },
-    });
-  });
-  // ropeB에 대한 체인과 제약 설정
-  Composites.chain(ropeB, 0.5, 0, -0.5, 0, {
-    stiffness: 0.8,
-    length: 2,
-    render: { type: 'line' },
-  });
-  Composite.add(
-    ropeB,
-    Constraint.create({
-      bodyB: ropeB.bodies[0],
-      pointB: { x: -20, y: 0 },
-      pointA: { x: ropeB.bodies[0].position.x, y: ropeB.bodies[0].position.y },
-      stiffness: 0.5,
-    })
-  );
+Composite.add(world, [
+  ropeA,
+  ropeB,
+  ropeC,
+  Bodies.rectangle(400, 600, 1200, 50.5, { isStatic: true }),
+]);
 
-  // 초록색 도형 그룹
-  groupC = Body.nextGroup(true);
-
-  ropeC = Composites.stack(600, 50, 13, 1, 10, 10, function (x, y) {
-    return Bodies.rectangle(x, y, 50, 20, {
-      collisionFilter: { group: groupC },
-      render: { fillStyle: 'green' },
-    });
-  });
-
-  // ropeC에 대한 체인과 제약 설정
-  Composites.chain(ropeC, 0.5, 0, -0.5, 0, {
-    stiffness: 0.8,
-    length: 2,
-    render: { type: 'line' },
-  });
-  Composite.add(
-    ropeC,
-    Constraint.create({
-      bodyB: ropeC.bodies[0],
-      pointB: { x: -25, y: 0 },
-      pointA: { x: ropeC.bodies[0].position.x, y: ropeC.bodies[0].position.y },
-      stiffness: 0.5,
-    })
-  );
-  //
-  //건들지 않기
-  // 월드에 바디 추가
-  Composite.add(world, [
-    ropeA,
-    ropeB,
-    ropeC,
-    Bodies.rectangle(400, 600, 1200, 50.5, { isStatic: true }),
-  ]);
-
-  // 마우스 컨트롤 추가
-  let mouse = Mouse.create(render.canvas),
-    mouseConstraint = MouseConstraint.create(engine, {
-      mouse: mouse,
-      constraint: {
-        stiffness: 0.2,
-        render: {
-          visible: false,
-        },
+// add mouse control
+var mouse = Mouse.create(render.canvas),
+  mouseConstraint = MouseConstraint.create(engine, {
+    mouse: mouse,
+    constraint: {
+      stiffness: 0.2,
+      render: {
+        visible: false,
       },
-    });
-
-  Composite.add(world, mouseConstraint);
-
-  // 마우스를 렌더링과 동기화 유지
-  render.mouse = mouse;
-
-  // 렌더 뷰포트를 씬에 맞추기
-  Render.lookAt(render, {
-    min: { x: 0, y: 0 },
-    max: { x: 700, y: 600 },
+    },
   });
 
-  //console.log(ground);
+Composite.add(world, mouseConstraint);
 
-  Runner.run(runner, engine);
-}
-function draw() {
-  //Engine.update(engine);
-  background(255);
-}
+// keep the mouse in sync with rendering
+render.mouse = mouse;
+
+// fit the render viewport to the scene
+Render.lookAt(render, {
+  min: { x: 0, y: 0 },
+  max: { x: 700, y: 600 },
+});
