@@ -35,7 +35,7 @@ let groupC;
 let ropeC;
 
 function setup() {
-  setCanvasContainer('canvas', 3, 2, ture);
+  setCanvasContainer('canvas', 3, 2, true);
   // 바디 추가
   // 주황색 도형 그룹
   groupA = Body.nextGroup(true);
@@ -145,7 +145,7 @@ function setup() {
     max: { x: 700, y: 600 },
   });
 
-  console.log(ground);
+  //console.log(ground);
 
   Runner.run(runner, engine);
 }
