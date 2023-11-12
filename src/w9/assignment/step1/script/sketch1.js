@@ -1,21 +1,23 @@
-var Engine = Matter.Engine,
-  Render = Matter.Render,
-  Runner = Matter.Runner,
-  Body = Matter.Body,
-  Composite = Matter.Composite,
-  Composites = Matter.Composites,
-  Constraint = Matter.Constraint,
-  MouseConstraint = Matter.MouseConstraint,
-  Mouse = Matter.Mouse,
-  Bodies = Matter.Bodies;
+let {
+  Engine,
+  Render,
+  Runner,
+  Body,
+  Composite,
+  Composites,
+  Constraint,
+  MouseConstraint,
+  Mouse,
+  Bodies,
+} = Matter;
 
 // create engine
-var engine = Engine.create(),
+let engine = Engine.create(),
   world = engine.world;
 
 // create renderer
 const elem = document.querySelector('#canvas');
-var render = Render.create({
+let render = Render.create({
   element: elem,
   engine: engine,
   options: {
@@ -30,13 +32,13 @@ var render = Render.create({
 Render.run(render);
 
 // create runner
-var runner = Runner.create();
+let runner = Runner.create();
 Runner.run(runner, engine);
 
 // add bodies
-var group = Body.nextGroup(true);
+let group = Body.nextGroup(true);
 
-var ropeA = Composites.stack(100, 50, 8, 1, 10, 10, function (x, y) {
+let ropeA = Composites.stack(100, 50, 8, 1, 10, 10, function (x, y) {
   return Bodies.rectangle(x, y, 50, 20, {
     collisionFilter: { group: group },
   });
@@ -59,7 +61,7 @@ Composite.add(
 
 group = Body.nextGroup(true);
 
-var ropeB = Composites.stack(350, 50, 10, 1, 10, 10, function (x, y) {
+let ropeB = Composites.stack(350, 50, 10, 1, 10, 10, function (x, y) {
   return Bodies.circle(x, y, 20, { collisionFilter: { group: group } });
 });
 
@@ -80,7 +82,7 @@ Composite.add(
 
 group = Body.nextGroup(true);
 
-var ropeC = Composites.stack(600, 50, 13, 1, 10, 10, function (x, y) {
+let ropeC = Composites.stack(600, 50, 13, 1, 10, 10, function (x, y) {
   return Bodies.rectangle(x - 20, y, 50, 20, {
     collisionFilter: { group: group },
     chamfer: 5,
@@ -106,7 +108,7 @@ Composite.add(world, [
 ]);
 
 // add mouse control
-var mouse = Mouse.create(render.canvas),
+let mouse = Mouse.create(render.canvas),
   mouseConstraint = MouseConstraint.create(engine, {
     mouse: mouse,
     constraint: {
