@@ -1,3 +1,15 @@
+// Matter.js 라이브러리 컴포넌트들
+//let Engine = Matter.Engine,
+//Render = Matter.Render,
+//Runner = Matter.Runner,
+//Body = Matter.Body,
+//Composite = Matter.Composite,
+//Composites = Matter.Composites,
+//Constraint = Matter.Constraint,
+//MouseConstraint = Matter.MouseConstraint,
+//Mouse = Matter.Mouse,
+//Bodies = Matter.Bodies;
+
 let {
   Engine,
   Body,
@@ -9,19 +21,23 @@ let {
   Bodies,
 } = Matter;
 
-let engine, world, render, runner;
+// 엔진 생성
+let engine = Engine.create(),
+  world = engine.world;
+
+let groupA;
+let ropeA;
+
+let groupB;
+let ropeB;
+
+let groupC;
+let ropeC;
 
 function setup() {
   setCanvasContainer('canvas', 3, 2, true);
   // 바디 추가
   // 주황색 도형 그룹
-  background(255);
-}
-
-function draw() {
-  Engine.update(engine);
-  background(255);
-
   groupA = Body.nextGroup(true);
 
   ropeA = Composites.stack(100, 50, 8, 1, 10, 10, function (x, y) {
@@ -132,4 +148,8 @@ function draw() {
   //console.log(ground);
 
   Runner.run(runner, engine);
+}
+function draw() {
+  //Engine.update(engine);
+  background(255);
 }
