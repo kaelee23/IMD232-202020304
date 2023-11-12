@@ -21,9 +21,9 @@ var render = Render.create({
   options: {
     width: 800,
     height: 600,
-    showAngleIndicator: true,
-    showCollisions: true,
-    showVelocity: true,
+    //showAngleIndicator: false,
+    //showCollisions: false,
+    //showVelocity: false,
   },
 });
 
@@ -80,19 +80,22 @@ Composite.add(
 
 group = Body.nextGroup(true);
 
-var ropeC = Composites.stack(600, 50, 13, 1, 10, 10, function (x, y) {
-  return Bodies.rectangle(x - 20, y, 50, 20, {
+var ropeC = Composites.stack(600, 50, 9, 1, 10, 10, function (x, y) {
+  return Bodies.rectangle(x, y, 50, 20, {
     collisionFilter: { group: group },
-    chamfer: 5,
   });
 });
 
-Composites.chain(ropeC, 0.3, 0, -0.3, 0, { stiffness: 1, length: 0 });
+Composites.chain(ropeC, 0.5, 0, -0.5, 0, {
+  stiffness: 0.8,
+  length: 1,
+  render: { type: 'line' },
+});
 Composite.add(
   ropeC,
   Constraint.create({
     bodyB: ropeC.bodies[0],
-    pointB: { x: -20, y: 0 },
+    pointB: { x: -25, y: 0 },
     pointA: { x: ropeC.bodies[0].position.x, y: ropeC.bodies[0].position.y },
     stiffness: 0.5,
   })
