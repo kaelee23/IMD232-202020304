@@ -14,16 +14,24 @@ let {
 let ropeA;
 let ropeB;
 let ropeC;
-let group = Body.nextGroup(true);
+let group;
+
+const originalWidth = 800;
+const originalHeight = 600;
+
+let relesed = false;
 
 // create engine
 let engine = Engine.create(),
   world = engine.world;
 
-function setup() {
-  setCanvasContainer('canvas', 3, 2, true);
+let runner = Runner.create();
+Runner.run(runner, engine);
 
-  rectMode(CENTER);
+function setup() {
+  setCanvasContainer('canvas', originalWidth, originalHeight, true);
+
+  //rectMode(CENTER);
 
   // 옵션과정 1: 물체 만들기
   group = Body.nextGroup(true);
@@ -89,61 +97,117 @@ function setup() {
       stiffness: 0.5,
     })
   );
-
+  //만든바디를세계에 추가
   Composite.add(world, [
     ropeA,
     ropeB,
     ropeC,
     Bodies.rectangle(400, 600, 1200, 50.5, { isStatic: true }),
   ]);
+  //   m = Mouse.create(document.querySelector("#defaultCanvas0"));
+  m = Mouse.create(document.querySelector('.p5Canvas'));
+  //   m.pixelRatio = pixelDensity();
+  m.pixelRatio = (pixelDensity() * width) / originalWidth;
+  mc = MouseConstraint.create(engine, {
+    mouse: m,
+    constraint: {
+      stiffness: 0.2,
+    },
+  });
 
-  console.log(ground);
-
-  // 필수과정 5: 자동 뺑뺑이에게 엔진을 등록해서 ㄱㄱㄱ
-  // Runner.run(runner, engine);
+  background(255);
 }
 
-// create renderer
-const elem = document.querySelector('#canvas');
-let render = Render.create({
-  element: elem,
-  engine: engine,
-  options: {
-    width: 800,
-    height: 600,
-    //showAngleIndicator: true,
-    //showCollisions: true,
-    //showVelocity: true,
-  },
-});
+function draw() {
+  background(255);
+  fill('orange');
+  ropeA.bodies.forEach((eachBody) => {
+    beginShape();
+    eachBody.vertices.forEach((each) => {
+      vertex(
+        (each.x / originalWidth) * width,
+        (each.y / originalHeight) * height
+      );
+    });
+    endShape(CLOSE);
+  });
 
-Render.run(render);
+  fill('blue');
+  ropeB.bodies.forEach((eachBody) => {
+    beginShape();
+    eachBody.vertices.forEach((each) => {
+      vertex(
+        (each.x / originalWidth) * width,
+        (each.y / originalHeight) * height
+      );
+    });
+    endShape(CLOSE);
+  });
 
-// create runner
-let runner = Runner.create();
-Runner.run(runner, engine);
+  fill('green');
+  ropeC.bodies.forEach((eachBody) => {
+    beginShape();
+    eachBody.vertices.forEach((each) => {
+      vertex(
+        (each.x / originalWidth) * width,
+        (each.y / originalHeight) * height
+      );
+    });
+    endShape(CLOSE);
+  });
+}
+
+function mouseRelesed() {
+  // add mouse control
+  let mouse = Mouse.create(render.canvas),
+    mouseConstraint = MouseConstraint.create(engine, {
+      mouse: mouse,
+      constraint: {
+        stiffness: 0.2,
+        render: {
+          visible: false,
+        },
+      },
+    });
+
+  Composite.add(world, mouseConstraint);
+
+  // keep the mouse in sync with rendering
+  render.mouse = mouse;
+
+  // fit the render viewport to the scene
+  Render.lookAt(render, {
+    min: { x: 0, y: 0 },
+    max: { x: 700, y: 600 },
+  });
+}
+//Render.run(render);
+
+//// create runner
+//let runner = Runner.create();
+//Runner.run(runner, engine);
 
 // add bodies
 
 // add mouse control
-let mouse = Mouse.create(render.canvas),
-  mouseConstraint = MouseConstraint.create(engine, {
-    mouse: mouse,
-    constraint: {
-      stiffness: 0.2,
-      render: {
-        visible: false,
-      },
-    },
-  });
-
-Composite.add(world, mouseConstraint);
-
-// keep the mouse in sync with rendering
-render.mouse = mouse;
-
-// fit the render viewport to the scene
-Render.lookAt(render, {
-  min: { x: 0, y: 0 },
-  max: { x: 700, y: 600 },
-});
+//let mouse = Mouse.create(render.canvas),
+//  mouseConstraint = MouseConstraint.create(engine, {
+//    mouse: mouse,
+//    constraint: {
+//      stiffness: 0.2,
+//      render: {
+//        visible: false,
+//      },
+//    },
+//  });
+//
+//Composite.add(world, mouseConstraint);
+//
+//// keep the mouse in sync with rendering
+//render.mouse = mouse;
+//
+//// fit the render viewport to the scene
+//Render.lookAt(render, {
+//  min: { x: 0, y: 0 },
+//  max: { x: 700, y: 600 },
+//});

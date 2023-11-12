@@ -19,6 +19,8 @@ let group;
 const originalWidth = 800;
 const originalHeight = 600;
 
+let relesed = false;
+
 // create engine
 let engine = Engine.create(),
   world = engine.world;
@@ -102,6 +104,16 @@ function setup() {
     ropeC,
     Bodies.rectangle(400, 600, 1200, 50.5, { isStatic: true }),
   ]);
+  //   m = Mouse.create(document.querySelector("#defaultCanvas0"));
+  m = Mouse.create(document.querySelector('.p5Canvas'));
+  //   m.pixelRatio = pixelDensity();
+  m.pixelRatio = (pixelDensity() * width) / originalWidth;
+  mc = MouseConstraint.create(engine, {
+    mouse: m,
+    constraint: {
+      stiffness: 0.2,
+    },
+  });
 
   background(255);
 }
@@ -169,7 +181,6 @@ function mouseRelesed() {
     max: { x: 700, y: 600 },
   });
 }
-
 //Render.run(render);
 
 //// create runner
