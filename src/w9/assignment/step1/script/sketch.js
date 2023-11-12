@@ -1,15 +1,28 @@
-// Initialize variables
-let groupA;
-let ropeA;
+let {
+  Engine,
+  Body,
+  Composite,
+  Composites,
+  Constraint,
+  MouseConstraint,
+  Mouse,
+  Bodies,
+  Render,
+  Runner,
+} = Matter;
 
-let groupB;
-let ropeB;
-
-let groupC;
-let ropeC;
+let engine, world, render, runner;
 
 function setup() {
   setCanvasContainer('canvas', 3, 2, true);
+
+  engine = Engine.create();
+  world = engine.world;
+  render = Render.create({
+    element: document.body,
+    engine: engine,
+  });
+  runner = Runner.create();
   background(255);
 }
 
