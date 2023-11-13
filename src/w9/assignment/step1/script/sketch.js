@@ -11,6 +11,8 @@ let {
   Bodies,
 } = Matter;
 
+//Common.setDecomp(decomp);
+
 let ropeA;
 let ropeB;
 let ropeC;
