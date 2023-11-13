@@ -133,12 +133,13 @@ function setup() {
     ropeC,
     Bodies.rectangle(400, 600, 1200, 50.5, { isStatic: true }),
   ]);
-  //m = Mouse.create(document.querySelector('.p5Canvas'));
-  //m.pixelRatio = pixelDensity();
-  //mc = MouseConstraint.create(matterEngine, {
-  //  mouse: m,
-  //});
-  //Composite.add(matterEngine.world, mc);
+  m = Mouse.create(document.querySelector('.p5Canvas'));
+  m.pixelRatio = pixelDensity();
+  mc = MouseConstraint.create(engine, {
+    mouse: m,
+  });
+
+  Composite.add(engine.world, mc);
 
   background(255);
 }
