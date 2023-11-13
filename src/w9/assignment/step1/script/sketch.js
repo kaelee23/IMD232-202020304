@@ -100,14 +100,30 @@ function setup() {
     { x: 4 * 4, y: -4.8 * 4 },
     { x: 7.6 * 4, y: -1.6 * 4 },
     { x: 6.5 * 4, y: 1.8 * 4 },
-    { x: 2.7 * 4, y: 2 * 4 },
+    { x: -2.7 * 4, y: 2 * 4 },
     { x: -1.2 * 4, y: 4.2 * 4 },
     { x: -3.6 * 4, y: 5 * 4 },
     { x: -1.3 * 4, y: -2.8 * 4 },
   ];
+  const vertices3 = [
+    { x: 2 * 4, y: 3 * 4 },
+    { x: 4.5 * 4, y: 1.5 * 4 },
+    { x: 7.5 * 4, y: 3 * 4 },
+    { x: 5.5 * 4, y: 5 * 4 },
+    { x: 6.5 * 4, y: 7 * 4 },
+    { x: 2 * 4, y: 7.5 * 4 },
+    { x: 3.5 * 4, y: 5 * 4 },
+  ];
 
-  ropeC = Composites.stack(600, 50, 9, 1, 10, 10, function (x, y, index) {
-    let vertices = index % 2 === 0 ? vertices1 : vertices2;
+  ropeC = Composites.stack(600, 50, 10, 1, 10, 10, function (x, y, index) {
+    let vertices;
+    if (index % 3 === 0) {
+      vertices = vertices1;
+    } else if (index % 3 === 1) {
+      vertices = vertices2;
+    } else {
+      vertices = vertices3;
+    }
     return Bodies.fromVertices(x, y, vertices, {
       collisionFilter: { group: group },
     });
