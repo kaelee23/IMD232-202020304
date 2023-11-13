@@ -16,6 +16,9 @@ let ropeB;
 let ropeC;
 let group;
 
+let m;
+let mc;
+
 const originalWidth = 800;
 const originalHeight = 600;
 
@@ -104,6 +107,12 @@ function setup() {
     ropeC,
     Bodies.rectangle(400, 600, 1200, 50.5, { isStatic: true }),
   ]);
+  //m = Mouse.create(document.querySelector('.p5Canvas'));
+  //m.pixelRatio = pixelDensity();
+  //mc = MouseConstraint.create(matterEngine, {
+  //  mouse: m,
+  //});
+  //Composite.add(matterEngine.world, mc);
 
   background(255);
 }
@@ -148,24 +157,6 @@ function draw() {
   });
 }
 
-function mouseRelesed() {
-  // add mouse control
-  let mouse = Mouse.create(render.canvas),
-    mouseConstraint = MouseConstraint.create(engine, {
-      mouse: mouse,
-      constraint: {
-        stiffness: 0.2,
-        render: {
-          visible: false,
-        },
-      },
-    });
-
-  Composite.add(world, mouseConstraint);
-
-  // keep the mouse in sync with rendering
-  render.mouse = mouse;
-}
 //   // fit the render viewport to the scene
 //   Render.lookAt(render, {
 //     min: { x: 0, y: 0 },
