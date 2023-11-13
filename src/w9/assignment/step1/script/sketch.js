@@ -110,7 +110,8 @@ function setup() {
 
 function draw() {
   background(255);
-  fill('orange');
+  noStroke();
+  fill(243, 176, 195);
   ropeA.bodies.forEach((eachBody) => {
     beginShape();
     eachBody.vertices.forEach((each) => {
@@ -122,7 +123,7 @@ function draw() {
     endShape(CLOSE);
   });
 
-  fill('blue');
+  fill(136, 133, 164);
   ropeB.bodies.forEach((eachBody) => {
     beginShape();
     eachBody.vertices.forEach((each) => {
@@ -134,7 +135,7 @@ function draw() {
     endShape(CLOSE);
   });
 
-  fill('green');
+  fill(122, 154, 130);
   ropeC.bodies.forEach((eachBody) => {
     beginShape();
     eachBody.vertices.forEach((each) => {
