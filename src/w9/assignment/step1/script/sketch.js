@@ -118,7 +118,7 @@ function setup() {
     ropeC,
     Constraint.create({
       bodyB: ropeC.bodies[0],
-      pointB: { x: vertices1[0].x, y: vertices1[0].y },
+      pointB: { x: -15, y: 0 },
       pointA: {
         x: ropeC.bodies[0].position.x,
         y: ropeC.bodies[0].position.y,
