@@ -59,32 +59,31 @@ function setup() {
       stiffness: 0.5,
     })
   );
-
   group = Body.nextGroup(true);
 
-  ropeB = Composites.stack(350, 50, 10, 1, 10, 10, function (x, y) {
-    return Bodies.circle(x, y, 20, { collisionFilter: { group: group } });
-  });
+  const vertices1 = [
+    { x: 5.5 * 4, y: -4.8 * 4 },
+    { x: 7.6 * 4, y: -1.6 * 4 },
+    { x: 6.5 * 4, y: 1.8 * 4 },
+    { x: 2.7 * 4, y: 4.5 * 4 },
+    { x: -1.2 * 4, y: 4.2 * 4 },
+    { x: -3.6 * 4, y: 1.9 * 4 },
+    { x: -1.3 * 4, y: -2.8 * 4 },
+  ];
 
-  Composites.chain(ropeB, 0.5, 0, -0.5, 0, {
-    stiffness: 0.8,
-    length: 2,
-    render: { type: 'line' },
-  });
-  Composite.add(
-    ropeB,
-    Constraint.create({
-      bodyB: ropeB.bodies[0],
-      pointB: { x: -20, y: 0 },
-      pointA: { x: ropeB.bodies[0].position.x, y: ropeB.bodies[0].position.y },
-      stiffness: 0.5,
-    })
-  );
+  const vertices2 = [
+    { x: 5.5 * 4, y: -2.8 * 4 },
+    { x: 7.6 * 4, y: 0.6 * 4 },
+    { x: 6.5 * 4, y: 4.2 * 4 },
+    { x: 2.7 * 4, y: 7.5 * 4 },
+    { x: -1.2 * 4, y: 7.2 * 4 },
+    { x: -3.6 * 4, y: 4.9 * 4 },
+    { x: -1.3 * 4, y: 0.2 * 4 },
+  ];
 
-  group = Body.nextGroup(true);
-
-  ropeC = Composites.stack(600, 50, 8, 1, 10, 10, function (x, y) {
-    return Bodies.rectangle(x, y, 50, 20, {
+  ropeC = Composites.stack(600, 50, 2, 1, 10, 10, function (x, y, index) {
+    let vertices = index % 2 === 0 ? vertices1 : vertices2;
+    return Bodies.fromVertices(x, y, vertices, {
       collisionFilter: { group: group },
     });
   });
@@ -98,8 +97,11 @@ function setup() {
     ropeC,
     Constraint.create({
       bodyB: ropeC.bodies[0],
-      pointB: { x: -25, y: 0 },
-      pointA: { x: ropeC.bodies[0].position.x, y: ropeC.bodies[0].position.y },
+      pointB: { x: vertices1[0].x, y: vertices1[0].y },
+      pointA: {
+        x: ropeC.bodies[0].position.x,
+        y: ropeC.bodies[0].position.y,
+      },
       stiffness: 0.5,
     })
   );
