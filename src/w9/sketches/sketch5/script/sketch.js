@@ -1,213 +1,100 @@
-let {
-  Engine,
-  Render,
-  Runner,
-  Body,
-  Composite,
-  Composites,
-  Constraint,
-  MouseConstraint,
-  Mouse,
-  Bodies,
-} = Matter;
+var Engine = Matter.Engine,
+  Render = Matter.Render,
+  Runner = Matter.Runner,
+  Composites = Matter.Composites,
+  Common = Matter.Common,
+  MouseConstraint = Matter.MouseConstraint,
+  Mouse = Matter.Mouse,
+  Composite = Matter.Composite,
+  Vertices = Matter.Vertices,
+  Bodies = Matter.Bodies;
 
-let ropeA;
-let ropeB;
-let ropeC;
-let group;
-
-const originalWidth = 800;
-const originalHeight = 600;
-
-let relesed = false;
+// provide concave decomposition support library
+Common.setDecomp(decomp);
 
 // create engine
-let engine = Engine.create(),
+var engine = Engine.create(),
   world = engine.world;
 
-let runner = Runner.create();
+// create renderer
+const elem = document.querySelector('#canvas');
+var render = Render.create({
+  element: elem,
+  engine: engine,
+  options: {
+    width: 800,
+    height: 600,
+  },
+});
+
+Render.run(render);
+
+// create runner
+var runner = Runner.create();
 Runner.run(runner, engine);
 
-function setup() {
-  setCanvasContainer('canvas', originalWidth, originalHeight, true);
+// add bodies
+Composite.add(world, [
+  // walls
+  Bodies.rectangle(400, 0, 800, 50, { isStatic: true }),
+  Bodies.rectangle(400, 600, 800, 50, { isStatic: true }),
+  Bodies.rectangle(800, 300, 50, 600, { isStatic: true }),
+  Bodies.rectangle(0, 300, 50, 600, { isStatic: true }),
+]);
 
-  //rectMode(CENTER);
-
-  // 옵션과정 1: 물체 만들기
-  group = Body.nextGroup(true);
-
-  ropeA = Composites.stack(100, 50, 8, 1, 10, 10, function (x, y) {
-    return Bodies.rectangle(x, y, 50, 20, {
-      collisionFilter: { group: group },
-    });
-  });
-
-  Composites.chain(ropeA, 0.5, 0, -0.5, 0, {
-    stiffness: 0.8,
-    length: 2,
-    render: { type: 'line' },
-  });
-  Composite.add(
-    ropeA,
-    Constraint.create({
-      bodyB: ropeA.bodies[0],
-      pointB: { x: -25, y: 0 },
-      pointA: { x: ropeA.bodies[0].position.x, y: ropeA.bodies[0].position.y },
-      stiffness: 0.5,
-    })
+var arrow = Vertices.fromPath('40 0 40 20 100 20 100 80 40 80 40 100 0 50'),
+  chevron = Vertices.fromPath('100 0 75 50 100 100 25 100 0 50 25 0'),
+  star = Vertices.fromPath(
+    '50 0 63 38 100 38 69 59 82 100 50 75 18 100 31 59 0 38 37 38'
+  ),
+  horseShoe = Vertices.fromPath(
+    '35 7 19 17 14 38 14 58 25 79 45 85 65 84 65 66 46 67 34 59 30 44 33 29 45 23 66 23 66 7 53 7'
   );
 
-  group = Body.nextGroup(true);
-
-  ropeB = Composites.stack(350, 50, 10, 1, 10, 10, function (x, y) {
-    return Bodies.circle(x, y, 20, { collisionFilter: { group: group } });
-  });
-
-  Composites.chain(ropeB, 0.5, 0, -0.5, 0, {
-    stiffness: 0.8,
-    length: 2,
-    render: { type: 'line' },
-  });
-  Composite.add(
-    ropeB,
-    Constraint.create({
-      bodyB: ropeB.bodies[0],
-      pointB: { x: -20, y: 0 },
-      pointA: { x: ropeB.bodies[0].position.x, y: ropeB.bodies[0].position.y },
-      stiffness: 0.5,
-    })
-  );
-
-  group = Body.nextGroup(true);
-
-  ropeC = Composites.stack(600, 50, 13, 1, 10, 10, function (x, y) {
-    return Bodies.rectangle(x - 20, y, 50, 20, {
-      collisionFilter: { group: group },
-      chamfer: 5,
-    });
-  });
-
-  Composites.chain(ropeC, 0.3, 0, -0.3, 0, { stiffness: 1, length: 0 });
-  Composite.add(
-    ropeC,
-    Constraint.create({
-      bodyB: ropeC.bodies[0],
-      pointB: { x: -20, y: 0 },
-      pointA: { x: ropeC.bodies[0].position.x, y: ropeC.bodies[0].position.y },
-      stiffness: 0.5,
-    })
-  );
-  //만든바디를세계에 추가
-  Composite.add(world, [
-    ropeA,
-    ropeB,
-    ropeC,
-    Bodies.rectangle(400, 600, 1200, 50.5, { isStatic: true }),
+var stack = Composites.stack(50, 50, 6, 4, 10, 10, function (x, y) {
+  var color = Common.choose([
+    '#f19648',
+    '#f5d259',
+    '#f55a3c',
+    '#063e7b',
+    '#ececd1',
   ]);
-  //   m = Mouse.create(document.querySelector("#defaultCanvas0"));
-  m = Mouse.create(document.querySelector('.p5Canvas'));
-  //   m.pixelRatio = pixelDensity();
-  m.pixelRatio = (pixelDensity() * width) / originalWidth;
-  mc = MouseConstraint.create(engine, {
-    mouse: m,
+  return Bodies.fromVertices(
+    x,
+    y,
+    Common.choose([arrow, chevron, star, horseShoe]),
+    {
+      render: {
+        fillStyle: color,
+        strokeStyle: color,
+        lineWidth: 1,
+      },
+    },
+    true
+  );
+});
+
+Composite.add(world, stack);
+
+// add mouse control
+var mouse = Mouse.create(render.canvas),
+  mouseConstraint = MouseConstraint.create(engine, {
+    mouse: mouse,
     constraint: {
       stiffness: 0.2,
+      render: {
+        visible: false,
+      },
     },
   });
 
-  background(255);
-}
+Composite.add(world, mouseConstraint);
 
-function draw() {
-  background(255);
-  fill('orange');
-  ropeA.bodies.forEach((eachBody) => {
-    beginShape();
-    eachBody.vertices.forEach((each) => {
-      vertex(
-        (each.x / originalWidth) * width,
-        (each.y / originalHeight) * height
-      );
-    });
-    endShape(CLOSE);
-  });
+// keep the mouse in sync with rendering
+render.mouse = mouse;
 
-  fill('blue');
-  ropeB.bodies.forEach((eachBody) => {
-    beginShape();
-    eachBody.vertices.forEach((each) => {
-      vertex(
-        (each.x / originalWidth) * width,
-        (each.y / originalHeight) * height
-      );
-    });
-    endShape(CLOSE);
-  });
-
-  fill('green');
-  ropeC.bodies.forEach((eachBody) => {
-    beginShape();
-    eachBody.vertices.forEach((each) => {
-      vertex(
-        (each.x / originalWidth) * width,
-        (each.y / originalHeight) * height
-      );
-    });
-    endShape(CLOSE);
-  });
-}
-
-function mouseRelesed() {
-  // add mouse control
-  let mouse = Mouse.create(render.canvas),
-    mouseConstraint = MouseConstraint.create(engine, {
-      mouse: mouse,
-      constraint: {
-        stiffness: 0.2,
-        render: {
-          visible: false,
-        },
-      },
-    });
-
-  Composite.add(world, mouseConstraint);
-
-  // keep the mouse in sync with rendering
-  render.mouse = mouse;
-
-  // fit the render viewport to the scene
-  Render.lookAt(render, {
-    min: { x: 0, y: 0 },
-    max: { x: 700, y: 600 },
-  });
-}
-//Render.run(render);
-
-//// create runner
-//let runner = Runner.create();
-//Runner.run(runner, engine);
-
-// add bodies
-
-// add mouse control
-//let mouse = Mouse.create(render.canvas),
-//  mouseConstraint = MouseConstraint.create(engine, {
-//    mouse: mouse,
-//    constraint: {
-//      stiffness: 0.2,
-//      render: {
-//        visible: false,
-//      },
-//    },
-//  });
-//
-//Composite.add(world, mouseConstraint);
-//
-//// keep the mouse in sync with rendering
-//render.mouse = mouse;
-//
-//// fit the render viewport to the scene
-//Render.lookAt(render, {
-//  min: { x: 0, y: 0 },
-//  max: { x: 700, y: 600 },
-//});
+// fit the render viewport to the scene
+Render.lookAt(render, {
+  min: { x: 0, y: 0 },
+  max: { x: 800, y: 600 },
+});

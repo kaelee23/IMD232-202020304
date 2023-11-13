@@ -16,6 +16,8 @@ let ropeB;
 let ropeC;
 let group;
 
+let stack;
+
 let m;
 let mc;
 
@@ -29,7 +31,6 @@ let engine = Engine.create(),
   world = engine.world;
 
 let runner = Runner.create();
-Runner.run(runner, engine);
 
 function setup() {
   setCanvasContainer('canvas', originalWidth, originalHeight, true);
@@ -163,6 +164,7 @@ function setup() {
   Composite.add(engine.world, mc);
 
   background(255);
+  Runner.run(runner, engine);
 }
 
 function draw() {
