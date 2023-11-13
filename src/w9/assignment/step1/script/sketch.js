@@ -34,9 +34,9 @@ Runner.run(runner, engine);
 function setup() {
   setCanvasContainer('canvas', originalWidth, originalHeight, true);
 
-  //rectMode(CENTER);
+  rectMode(CENTER);
 
-  // 옵션과정 1: 물체 만들기
+  //ropeA 시작!!!!
   group = Body.nextGroup(true);
 
   ropeA = Composites.stack(100, 50, 8, 1, 10, 10, function (x, y) {
@@ -60,6 +60,8 @@ function setup() {
     })
   );
 
+  //ropeB 시작!!!!
+
   group = Body.nextGroup(true);
 
   ropeB = Composites.stack(350, 50, 10, 1, 10, 10, function (x, y) {
@@ -80,6 +82,8 @@ function setup() {
       stiffness: 0.5,
     })
   );
+
+  //ropeC 시작!!!!
   group = Body.nextGroup(true);
 
   const vertices1 = [
@@ -93,16 +97,16 @@ function setup() {
   ];
 
   const vertices2 = [
-    { x: 4 * 4, y: -2.8 * 4 },
-    { x: 9 * 4, y: 3 * 4 },
-    { x: 7 * 4, y: 4 * 4 },
-    { x: 2 * 4, y: 10 * 4 },
-    { x: -1 * 4, y: 7.2 * 4 },
-    { x: -3.6 * 4, y: 7 * 4 },
-    { x: -1 * 4, y: 0.2 * 4 },
+    { x: 4 * 4, y: -4.8 * 4 },
+    { x: 7.6 * 4, y: -1.6 * 4 },
+    { x: 6.5 * 4, y: 1.8 * 4 },
+    { x: 2.7 * 4, y: 2 * 4 },
+    { x: -1.2 * 4, y: 4.2 * 4 },
+    { x: -3.6 * 4, y: 5 * 4 },
+    { x: -1.3 * 4, y: -2.8 * 4 },
   ];
 
-  ropeC = Composites.stack(600, 50, 8, 1, 10, 10, function (x, y, index) {
+  ropeC = Composites.stack(600, 50, 9, 1, 10, 10, function (x, y, index) {
     let vertices = index % 2 === 0 ? vertices1 : vertices2;
     return Bodies.fromVertices(x, y, vertices, {
       collisionFilter: { group: group },
