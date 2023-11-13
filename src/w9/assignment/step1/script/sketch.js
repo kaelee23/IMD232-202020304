@@ -104,16 +104,6 @@ function setup() {
     ropeC,
     Bodies.rectangle(400, 600, 1200, 50.5, { isStatic: true }),
   ]);
-  //   m = Mouse.create(document.querySelector("#defaultCanvas0"));
-  m = Mouse.create(document.querySelector('.p5Canvas'));
-  //   m.pixelRatio = pixelDensity();
-  m.pixelRatio = (pixelDensity() * width) / originalWidth;
-  mc = MouseConstraint.create(engine, {
-    mouse: m,
-    constraint: {
-      stiffness: 0.2,
-    },
-  });
 
   background(255);
 }
