@@ -44,15 +44,9 @@ function setup() {
   //ropeA 시작!!!!
   group = Body.nextGroup(true);
 
-  const chevronShape = [
-    { x: 4.5 * 8, y: 1.5 * 8 },
-    { x: 7.5 * 8, y: 3 * 8 },
-    { x: 5.5 * 8, y: 5 * 8 },
-    { x: 6.5 * 8, y: 7 * 8 },
-    { x: 2 * 8, y: 7.5 * 8 },
-    { x: 3.5 * 8, y: 5 * 8 },
-    { x: 2 * 8, y: 3 * 8 },
-  ];
+  const chevronShape = Vertices.fromPath(
+    '10.5 3.5 17.5 7 13.5 11.5 15.5 16 5 17.5 8.5 11.5 4.5 5.5'
+  );
 
   ropeA = Composites.stack(100, 50, 9, 1, 10, 10, function (x, y) {
     // chevron 모양의 정점 배열을 사용하여 ropeA를 생성
@@ -60,6 +54,7 @@ function setup() {
       collisionFilter: { group: group },
     });
   });
+
   ropeA.bodies.forEach((body) => {
     if (body.parts.length > 1) {
       // 오목 다각형이 감지되었을 경우, decompose를 사용하여 처리합니다.
@@ -77,6 +72,17 @@ function setup() {
       // 원래의 오목 다각형을 새로운 볼록 다각형으로 교체합니다.
       Composite.remove(world, body);
       Composite.add(world, convexBodies);
+
+      // 여기에서 볼록 다각형을 원래의 오목 다각형으로 다시 합칠 수 있는 로직을 추가하세요.
+      // 예를 들어, convexBodies 배열을 사용하여 하나의 복합 몸체를 만들 수 있습니다.
+      const combinedBody = Body.create({
+        parts: convexBodies,
+        position: body.position,
+        // 다른 원하는 속성들 추가 가능
+      });
+
+      // 합쳐진 몸체를 세계에 추가합니다.
+      Composite.add(world, combinedBody);
     }
   });
 
