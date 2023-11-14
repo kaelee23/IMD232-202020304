@@ -9,9 +9,11 @@ let {
   MouseConstraint,
   Mouse,
   Bodies,
+  Vertices,
+  Common,
 } = Matter;
 
-//Common.setDecomp(decomp);
+Common.setDecomp(decomp);
 
 let ropeA;
 let ropeB;
@@ -42,8 +44,19 @@ function setup() {
   //ropeA 시작!!!!
   group = Body.nextGroup(true);
 
+  const arrowShape = [
+    { x: 0, y: 0 },
+    { x: 10, y: 0 },
+    { x: 10, y: 40 },
+    { x: 15, y: 40 },
+    { x: 5, y: 50 },
+    { x: 0, y: 40 },
+    { x: -5, y: 40 },
+  ];
+
   ropeA = Composites.stack(100, 50, 8, 1, 10, 10, function (x, y) {
-    return Bodies.rectangle(x, y, 50, 20, {
+    // 화살표 모양의 정점 배열을 사용하여 ropeA를 생성
+    return Bodies.fromVertices(x, y, arrowShape, {
       collisionFilter: { group: group },
     });
   });
@@ -53,15 +66,20 @@ function setup() {
     length: 2,
     render: { type: 'line' },
   });
-  Composite.add(
-    ropeA,
-    Constraint.create({
-      bodyB: ropeA.bodies[0],
-      pointB: { x: -25, y: 0 },
-      pointA: { x: ropeA.bodies[0].position.x, y: ropeA.bodies[0].position.y },
-      stiffness: 0.5,
-    })
-  );
+  if (ropeA.bodies.length > 0) {
+    Composite.add(
+      ropeA,
+      Constraint.create({
+        bodyB: ropeA.bodies[0],
+        pointB: { x: -25, y: 0 },
+        pointA: {
+          x: ropeA.bodies[0].position.x,
+          y: ropeA.bodies[0].position.y,
+        },
+        stiffness: 0.5,
+      })
+    );
+  }
 
   //ropeB 시작!!!!
 
