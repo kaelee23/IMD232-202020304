@@ -44,21 +44,40 @@ function setup() {
   //ropeA 시작!!!!
   group = Body.nextGroup(true);
 
-  const arrowShape = [
-    { x: 0, y: 0 },
-    { x: 10, y: 0 },
-    { x: 10, y: 40 },
-    { x: 15, y: 40 },
-    { x: 5, y: 50 },
-    { x: 0, y: 40 },
-    { x: -5, y: 40 },
+  const chevronShape = [
+    { x: 4.5 * 8, y: 1.5 * 8 },
+    { x: 7.5 * 8, y: 3 * 8 },
+    { x: 5.5 * 8, y: 5 * 8 },
+    { x: 6.5 * 8, y: 7 * 8 },
+    { x: 2 * 8, y: 7.5 * 8 },
+    { x: 3.5 * 8, y: 5 * 8 },
+    { x: 2 * 8, y: 3 * 8 },
   ];
 
-  ropeA = Composites.stack(100, 50, 8, 1, 10, 10, function (x, y) {
-    // 화살표 모양의 정점 배열을 사용하여 ropeA를 생성
-    return Bodies.fromVertices(x, y, arrowShape, {
+  ropeA = Composites.stack(100, 50, 9, 1, 10, 10, function (x, y) {
+    // chevron 모양의 정점 배열을 사용하여 ropeA를 생성
+    return Bodies.fromVertices(x, y, chevronShape, {
       collisionFilter: { group: group },
     });
+  });
+  ropeA.bodies.forEach((body) => {
+    if (body.parts.length > 1) {
+      // 오목 다각형이 감지되었을 경우, decompose를 사용하여 처리합니다.
+      const decomposed = decomp.decomp(
+        body.vertices.map((v) => ({ x: v.x, y: v.y }))
+      );
+
+      // 각 볼록 다각형 부분에 대한 새로운 바디를 생성합니다.
+      const convexBodies = decomposed.map((vertices) =>
+        Bodies.fromVertices(body.position.x, body.position.y, vertices, {
+          collisionFilter: { group: group },
+        })
+      );
+
+      // 원래의 오목 다각형을 새로운 볼록 다각형으로 교체합니다.
+      Composite.remove(world, body);
+      Composite.add(world, convexBodies);
+    }
   });
 
   Composites.chain(ropeA, 0.5, 0, -0.5, 0, {
