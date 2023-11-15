@@ -21,7 +21,6 @@ let ropeC;
 let group;
 
 let stack;
-let obstacles = [];
 
 let m;
 let mc;
@@ -42,26 +41,32 @@ function setup() {
 
   rectMode(CENTER);
 
-  let obstacleVertices = [
-    createVector(200, 125),
-    createVector(200, 200),
-    createVector(275, 275),
-    createVector(125, 275),
-  ];
-  let obstacle = Bodies.fromVertices(0, 0, obstacleVertices, {
-    collisionFilter: { group: group },
-  });
-
   // ropeA 시작!!!!
 
-  // Body 그룹을 다음 그룹으로 설정
   group = Body.nextGroup(true);
 
   // Composites를 사용하여 스택 생성
   ropeA = Composites.stack(100, 50, 8, 1, 10, 10, function (x, y) {
-    // Replace the rectangle with the obstacle
-    return obstacle;
+    return Bodies.rectangle(x, y, 50, 20, {
+      collisionFilter: { group: group },
+    });
   });
+
+  Composites.chain(ropeA, 0.5, 0, -0.5, 0, {
+    stiffness: 0.8,
+    length: 2,
+    render: { type: 'line' },
+  });
+  Composite.add(
+    ropeA,
+    Constraint.create({
+      bodyB: ropeA.bodies[0],
+      pointB: { x: -25, y: 0 },
+      pointA: { x: ropeA.bodies[0].position.x, y: ropeA.bodies[0].position.y },
+      stiffness: 0.5,
+    })
+  );
+
   // Composites.chain을 사용하여 바디를 연결
   Composites.chain(ropeA, 0.5, 0, -0.5, 0, {
     stiffness: 0.8,
@@ -88,12 +93,11 @@ function setup() {
     return Bodies.circle(x, y, 20, { collisionFilter: { group: group } });
   });
 
-  Composites.chain(ropeA, 0.5, 0, -0.5, 0, {
+  Composites.chain(ropeB, 0.5, 0, -0.5, 0, {
     stiffness: 0.8,
     length: 2,
     render: { type: 'line' },
   });
-
   Composite.add(
     ropeB,
     Constraint.create({
