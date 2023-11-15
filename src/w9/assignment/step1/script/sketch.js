@@ -43,11 +43,10 @@ function setup() {
 
   // ropeA 시작!!!!
 
-  // ropeA 시작!!!!
+  // ...
 
   group = Body.nextGroup(true);
 
-  // Composites를 사용하여 스택 생성
   const starVertices = [
     { x: 0, y: -20 },
     { x: 5, y: -5 },
@@ -60,7 +59,6 @@ function setup() {
   ];
 
   ropeA = Composites.stack(100, 50, 8, 1, 10, 10, function (x, y) {
-    // Convert relative starVertices to absolute positions
     const absoluteVertices = starVertices.map((vertex) => ({
       x: x + vertex.x,
       y: y + vertex.y,
