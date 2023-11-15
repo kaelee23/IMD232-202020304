@@ -1,0 +1,48 @@
+class Polygon {
+  constructor(vertices) {
+    this.vertices = vertices;
+  }
+
+  intersects(pos) {
+    let result = true;
+    for (let i = 0; i < this.vertices.length; i++) {
+      const a = this.vertices[i];
+      const b = this.vertices[(i + 1) % this.vertices.length];
+      const forwardVec = createVector(a.y - b.y, b.x - a.x);
+      const vec = p5.Vector.sub(pos, a);
+      if (forwardVec.dot(vec) < 0) result = false;
+    }
+    return result;
+  }
+
+  normalVec(pos) {
+    let shortest = null;
+    let recordD = Infinity;
+    for (let i = 0; i < this.vertices.length; i++) {
+      const a = this.vertices[i];
+      const b = this.vertices[(i + 1) % this.vertices.length];
+      const ap = p5.Vector.sub(pos, a);
+      const ab = p5.Vector.sub(b, a);
+      ab.normalize();
+      ab.mult(ap.dot(ab));
+      const normal = p5.Vector.add(a, ab);
+      normal.sub(pos);
+      const m = normal.mag();
+      if (m < recordD) {
+        recordD = m;
+        shortest = normal;
+      }
+    }
+    return shortest;
+  }
+
+  render() {
+    stroke(0);
+    fill(128);
+    beginShape();
+    for (const v of this.vertices) {
+      vertex(v.x, v.y);
+    }
+    endShape(CLOSE);
+  }
+}
