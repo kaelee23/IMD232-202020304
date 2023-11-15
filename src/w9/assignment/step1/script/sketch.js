@@ -43,11 +43,30 @@ function setup() {
 
   // ropeA 시작!!!!
 
+  // ropeA 시작!!!!
+
   group = Body.nextGroup(true);
 
   // Composites를 사용하여 스택 생성
+  const starVertices = [
+    { x: 0, y: -20 },
+    { x: 5, y: -5 },
+    { x: 20, y: 0 },
+    { x: 5, y: 5 },
+    { x: 0, y: 20 },
+    { x: -5, y: 5 },
+    { x: -20, y: 0 },
+    { x: -5, y: -5 },
+  ];
+
   ropeA = Composites.stack(100, 50, 8, 1, 10, 10, function (x, y) {
-    return Bodies.rectangle(x, y, 50, 20, {
+    // Convert relative starVertices to absolute positions
+    const absoluteVertices = starVertices.map((vertex) => ({
+      x: x + vertex.x,
+      y: y + vertex.y,
+    }));
+
+    return Bodies.fromVertices(x, y, absoluteVertices, {
       collisionFilter: { group: group },
     });
   });
@@ -67,23 +86,7 @@ function setup() {
     })
   );
 
-  // Composites.chain을 사용하여 바디를 연결
-  Composites.chain(ropeA, 0.5, 0, -0.5, 0, {
-    stiffness: 0.8,
-    length: 2,
-    render: { type: 'line' },
-  });
-
-  // Composite.add를 사용하여 추가적인 제약 조건 생성
-  Composite.add(
-    ropeA,
-    Constraint.create({
-      bodyB: ropeA.bodies[0],
-      pointB: { x: -25, y: 0 },
-      pointA: { x: ropeA.bodies[0].position.x, y: ropeA.bodies[0].position.y },
-      stiffness: 0.5,
-    })
-  );
+  // ... (the rest of the code remains unchanged)
 
   //ropeB 시작!!!!
 
