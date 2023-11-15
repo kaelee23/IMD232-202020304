@@ -21,6 +21,7 @@ let ropeC;
 let group;
 
 let stack;
+let obstacles = [];
 
 let m;
 let mc;
@@ -28,7 +29,7 @@ let mc;
 const originalWidth = 800;
 const originalHeight = 600;
 
-let relesed = false;
+//let relesed = false;
 
 // create engine
 let engine = Engine.create(),
@@ -40,71 +41,37 @@ function setup() {
   setCanvasContainer('canvas', originalWidth, originalHeight, true);
 
   rectMode(CENTER);
+  // ropeA 시작!!!!
 
-  //ropeA 시작!!!!
+  // Body 그룹을 다음 그룹으로 설정
   group = Body.nextGroup(true);
 
-  const chevronShape = Vertices.fromPath(
-    '10.5 3.5 17.5 7 13.5 11.5 15.5 16 5 17.5 8.5 11.5 4.5 5.5'
-  );
-
-  ropeA = Composites.stack(100, 50, 9, 1, 10, 10, function (x, y) {
-    // chevron 모양의 정점 배열을 사용하여 ropeA를 생성
-    return Bodies.fromVertices(x, y, chevronShape, {
+  // Composites를 사용하여 스택 생성
+  ropeA = Composites.stack(100, 50, 8, 1, 10, 10, function (x, y) {
+    // Bodies.rectangle을 사용하여 사각형 생성
+    return Bodies.rectangle(x, y, 50, 20, {
+      // 충돌 필터에 그룹 적용
       collisionFilter: { group: group },
     });
   });
 
-  ropeA.bodies.forEach((body) => {
-    if (body.parts.length > 1) {
-      // 오목 다각형이 감지되었을 경우, decompose를 사용하여 처리합니다.
-      const decomposed = decomp.decomp(
-        body.vertices.map((v) => ({ x: v.x, y: v.y }))
-      );
-
-      // 각 볼록 다각형 부분에 대한 새로운 바디를 생성합니다.
-      const convexBodies = decomposed.map((vertices) =>
-        Bodies.fromVertices(body.position.x, body.position.y, vertices, {
-          collisionFilter: { group: group },
-        })
-      );
-
-      // 원래의 오목 다각형을 새로운 볼록 다각형으로 교체합니다.
-      Composite.remove(world, body);
-      Composite.add(world, convexBodies);
-
-      // 여기에서 볼록 다각형을 원래의 오목 다각형으로 다시 합칠 수 있는 로직을 추가하세요.
-      // 예를 들어, convexBodies 배열을 사용하여 하나의 복합 몸체를 만들 수 있습니다.
-      const combinedBody = Body.create({
-        parts: convexBodies,
-        position: body.position,
-        // 다른 원하는 속성들 추가 가능
-      });
-
-      // 합쳐진 몸체를 세계에 추가합니다.
-      Composite.add(world, combinedBody);
-    }
-  });
-
+  // Composites.chain을 사용하여 바디를 연결
   Composites.chain(ropeA, 0.5, 0, -0.5, 0, {
     stiffness: 0.8,
     length: 2,
     render: { type: 'line' },
   });
-  if (ropeA.bodies.length > 0) {
-    Composite.add(
-      ropeA,
-      Constraint.create({
-        bodyB: ropeA.bodies[0],
-        pointB: { x: -25, y: 0 },
-        pointA: {
-          x: ropeA.bodies[0].position.x,
-          y: ropeA.bodies[0].position.y,
-        },
-        stiffness: 0.5,
-      })
-    );
-  }
+
+  // Composite.add를 사용하여 추가적인 제약 조건 생성
+  Composite.add(
+    ropeA,
+    Constraint.create({
+      bodyB: ropeA.bodies[0],
+      pointB: { x: -25, y: 0 },
+      pointA: { x: ropeA.bodies[0].position.x, y: ropeA.bodies[0].position.y },
+      stiffness: 0.5,
+    })
+  );
 
   //ropeB 시작!!!!
 
