@@ -13,24 +13,24 @@ class Cell {
   setNeighbors(neighbors) {
     this.neighbors = neighbors;
   }
-
   calcNextState() {
-    const livingNeighbors = this.neighbors.filter(
-      (eachNeighbor) => eachNeighbor?.state
-    );
-    const livingNum = livingNeighbors.length;
-    if (this.state) {
-      if (livingNum < 2 || livingNum > 3) {
-        this.nextState = false;
-      } else {
-        this.nextState = this.state;
+    const opponentCounts = [0, 0, 0]; // 각각 Rock, Paper, Scissors에 대한 이웃의 수를 카운트
+
+    this.neighbors.forEach((eachNeighbor) => {
+      if (eachNeighbor) {
+        opponentCounts[eachNeighbor.state]++;
       }
+    });
+
+    // 이기는 경우에 대한 조건 설정
+    if (this.state === ROCK && opponentCounts[SCISSORS] > 2) {
+      this.nextState = SCISSORS; // Rock vs Scissors
+    } else if (this.state === PAPER && opponentCounts[ROCK] > 2) {
+      this.nextState = ROCK; // Paper vs Rock
+    } else if (this.state === SCISSORS && opponentCounts[PAPER] > 2) {
+      this.nextState = PAPER; // Scissors vs Paper
     } else {
-      if (livingNum === 3) {
-        this.nextState = true;
-      } else {
-        this.nextState = this.state;
-      }
+      this.nextState = this.state; // 방어
     }
   }
 
