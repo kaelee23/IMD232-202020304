@@ -1,12 +1,12 @@
+let cam;
+
 function setup() {
   setCanvasContainer('canvas', 3, 2, true);
-
-  background(255);
-  noStroke();
-  fill('red');
+  cam = createCapture(VIDEO);
+  cam.size(500, 500);
 }
 
 function draw() {
   background(255);
-  circle(mouseX, mouseY, 50);
+  image(cam, 0, 0, width, height);
 }
