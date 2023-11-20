@@ -63,11 +63,11 @@ class Cell {
     translate(this.x, this.y);
     // stroke(this.isHover(mx, my) ? 'white' : 'black');
     if (this.state === 'rock') {
-      fill('#ff2456');
+      fill('#fbf1df');
     } else if (this.state === 'paper') {
-      fill('#06ff56');
+      fill('#b3e5fc');
     } else if (this.state === 'scissors') {
-      fill('#0145ff');
+      fill('yellowgreen');
     }
     rect(0, 0, this.w, this.h);
     pop();
