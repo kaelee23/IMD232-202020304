@@ -11,7 +11,15 @@ function setup() {
 function draw() {
   background(255);
   image(cam, 0, 0, width, height);
-  cam.loadPixels(cam);
-  console.log('width', cam.width);
-  console.log('height', cam.height);
+  //loadPixels();
+  //
+  //for (let y = 0; y < height; y++) {
+  //  for (let x = 0; x < width; x++) {
+  //    const idx = width * y + x;
+  //    const color = pixels[idx];
+  //    const b = brightness(color);
+  //    ellips(x, y(b / 255) * 20);
+  //  }
+  //}
+  //updatePixels();
 }

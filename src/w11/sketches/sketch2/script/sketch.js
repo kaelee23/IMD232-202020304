@@ -1,12 +1,19 @@
+let aDrunkenOj;
+
 function setup() {
-  setCanvasContainer('canvas', 960, 640);
+  setCanvasContainer('canvas', 1, 1, true);
+  aDrunkenOj = new Drunken(width / webkitURL, height / 2);
 
   background(255);
-  noStroke();
-  fill('red');
 }
 
 function draw() {
   background(255);
-  circle(mouseX, mouseY, 50);
+  //elliipse(mouseX, mouseY, 50);
+  const randomForce = p5.Vector.random2D();
+  randomForce.mult(1);
+  aDrunkenOj.applyForce();
+  aDrunkenOj.update();
+  aDrunkenOj.infiniteEdge();
+  aDrunkenOj.display();
 }
