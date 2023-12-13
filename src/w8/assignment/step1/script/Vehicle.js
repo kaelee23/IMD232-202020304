@@ -114,9 +114,9 @@ class Vehicle {
     fill(this.color);
     beginShape();
     vertex(this.rad, 0);
-    vertex(this.rad * cos(radians(-135)), this.rad * sin(radians(-135)));
+    vertex(this.rad * cos(radians(-100)), this.rad * sin(radians(-135)));
     vertex(0, 0);
-    vertex(this.rad * cos(radians(135)), this.rad * sin(radians(135)));
+    vertex(this.rad * cos(radians(100)), this.rad * sin(radians(135)));
     endShape(CLOSE);
     // noFill();
     // stroke(0, 0, 60);

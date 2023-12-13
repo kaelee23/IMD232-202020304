@@ -7,8 +7,9 @@ function setup() {
 
 function draw() {
   background(255);
+  circle(mouseX, mouseY, 50);
 
-  if (random(1) < 0.1) {
+  if (random(1) < 1) {
     let x = random(width);
     let y = -10;
     let rotationSpeed = random(-0.2, 0.3);
