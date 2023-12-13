@@ -14,22 +14,23 @@ class Drunken {
 
   update() {
     this.vel.add(this.acc);
+    this.vel.limit(5);
     this.pos.add(this.vel);
     this.acc.mult(0);
   }
-    infiniteEdge(){
-        if(this.pos.x<0){
-            this.pos.x=width
-        }
-        if(this.pos.x>0){
-            this.pos.x=0
-        }
-        if(this.pos.y<0){
-            this.pos.x=height
-        }
-        if(this.pos.y>0){
-            this.pos.x=0
-        }
+
+  infiniteEdge() {
+    if (this.pos.x < 0) {
+      this.pos.x = width;
+    }
+    if (this.pos.x > width) {
+      this.pos.x = 0;
+    }
+    if (this.pos.y < 0) {
+      this.pos.y = height;
+    }
+    if (this.pos.y > height) {
+      this.pos.y = 0;
     }
   }
 
