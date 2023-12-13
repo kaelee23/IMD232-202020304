@@ -1,7 +1,7 @@
 class Particle {
-  constructor(x, y, rotationSpeed) {
+  constructor(x, y) {
     this.pos = createVector(x, y);
-    this.vel = createVector(0, 0);
+    this.vel = createVector(0, 1);
     this.acc = createVector(0, 0.05);
     this.byeRect = 255.0;
 
@@ -9,7 +9,7 @@ class Particle {
     this.color = color(grayValue, grayValue, grayValue);
 
     this.rotation = 0;
-    this.rotationSpeed = rotationSpeed;
+    this.rotationSpeed = 0;
   }
 
   run() {
@@ -39,14 +39,8 @@ class Particle {
       this.byeRect
     );
     strokeWeight(2);
-    line(0, -5, 0, 5);
+    line(0, -5, 0, 5); // Change this line to draw a vertical line instead of a horizontal line
     pop();
-  }
-
-  applyForce(force) {
-    // Apply a parabolic force to create a bouncing effect
-    this.vel.x += force.x;
-    this.vel.y += force.y;
   }
 
   isDead() {

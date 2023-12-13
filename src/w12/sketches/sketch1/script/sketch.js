@@ -8,7 +8,7 @@ function setup() {
 function draw() {
   background(255);
 
-  if (random(1) < 1) {
+  if (random(1) < 0.1) {
     let x = random(width);
     let y = -10;
     let rotationSpeed = random(-0.2, 0.3);
@@ -22,6 +22,17 @@ function draw() {
     if (particle.isDead()) {
       particles.splice(i, 1);
     }
+
+    // Check if the mouse is near the particle and apply a parabolic force
+    let mouseDist = dist(mouseX, mouseY, particle.pos.x, particle.pos.y);
+    if (mouseDist < 50) {
+      let force = createVector(
+        mouseX - particle.pos.x,
+        mouseY - particle.pos.y
+      );
+      force.normalize();
+      force.mult(0.1); // Adjust the strength of the force as needed
+      particle.applyForce(force);
+    }
   }
-  console.log(particles.length);
 }
