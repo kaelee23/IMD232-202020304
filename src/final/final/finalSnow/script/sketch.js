@@ -1,39 +1,61 @@
-let particles = [];
+let wPosition;
 
 function setup() {
-  setCanvasContainer('canvas', 2, 1, true);
-  rectMode(CENTER);
+  createCanvas(600, 400);
+  background(255);
+
+  // Store the initial position of the W
+  wPosition = createVector(width / 2, height / 2);
 }
 
 function draw() {
   background(255);
-  circle(mouseX, mouseY, 50);
 
-  if (random(1) < 1) {
-    let x = random(width);
-    let y = -10;
-    let rotationSpeed = random(-0.2, 0.3);
-    particles.push(new Particle(x, y, rotationSpeed));
-  }
+  // Calculate the distance between the mouse and the center of the canvas
+  let distance = dist(mouseX, mouseY, width / 2, height / 2);
 
-  for (let i = particles.length - 1; i >= 0; i--) {
-    let particle = particles[i];
-    particle.run();
+  // Map the distance to control the dispersal effect
+  let dispersal = map(distance, 0, width / 2, 0, 100);
 
-    if (particle.isDead()) {
-      particles.splice(i, 1);
-    }
+  // Draw the W at the updated position with dispersal effect
+  drawCharacterSnow(wPosition.x, wPosition.y, dispersal);
+}
 
-    // Check if the mouse is near the particle and apply a parabolic force
-    let mouseDist = dist(mouseX, mouseY, particle.pos.x, particle.pos.y);
-    if (mouseDist < 50) {
-      let force = createVector(
-        mouseX - particle.pos.x,
-        mouseY - particle.pos.y
-      );
-      force.normalize();
-      force.mult(0.1); // Adjust the strength of the force as needed
-      particle.applyForce(force);
-    }
-  }
+function drawCharacterSnow(x, y, dispersal) {
+  fill(255);
+
+  // Top part of W
+  ellipse(constrain(x - 20 + dispersal, 0, width), y - 35 - dispersal, 10); //1
+  ellipse(constrain(x - 20 + dispersal, 0, width), y - 30 - dispersal, 10); // 2
+  ellipse(constrain(x - 20 + dispersal, 0, width), y - 25 - dispersal, 10); // 3
+  ellipse(constrain(x - 20 + dispersal, 0, width), y - 20 - dispersal, 10); // 10
+  ellipse(constrain(x - 20 + dispersal, 0, width), y - 15 - dispersal, 10); // 10
+  ellipse(constrain(x - 15 + dispersal, 0, width), y - 15 - dispersal, 10); // 10
+  ellipse(constrain(x - 10 + dispersal, 0, width), y - 15 - dispersal, 10); // 10
+  ellipse(constrain(x - 5 + dispersal, 0, width), y - 15 - dispersal, 10); // 10
+  ellipse(constrain(x + dispersal, 0, width), y - 15 - dispersal, 10); // 10
+
+  // Bottom part of W
+  ellipse(constrain(x - 20 + dispersal, 0, width), y + 10 + dispersal, 10); //1
+  ellipse(constrain(x - 20 + dispersal, 0, width), y + 15 + dispersal, 10); // 2
+  ellipse(constrain(x - 20 + dispersal, 0, width), y + 20 + dispersal, 10); // 3
+  ellipse(constrain(x - 20 + dispersal, 0, width), y + 25 + dispersal, 10); // 10
+  ellipse(constrain(x - 20 + dispersal, 0, width), y + 30 + dispersal, 10); // 10
+  ellipse(constrain(x - 15 + dispersal, 0, width), y + 30 + dispersal, 10); // 10
+  ellipse(constrain(x - 10 + dispersal, 0, width), y + 30 + dispersal, 10); // 10
+  ellipse(constrain(x - 5 + dispersal, 0, width), y + 30 + dispersal, 10); // 10
+  ellipse(constrain(x + dispersal, 0, width), y + 30 + dispersal, 10); // 10
+
+  // Middle part of W
+  ellipse(constrain(x - 30 + dispersal, 0, width), y, 10); // 10
+  ellipse(constrain(x - 25 + dispersal, 0, width), y, 10); // 10
+  ellipse(constrain(x - 20 + dispersal, 0, width), y, 10); // 10
+  ellipse(constrain(x - 15 + dispersal, 0, width), y, 10); // 10
+  ellipse(constrain(x - 10 + dispersal, 0, width), y, 10); // 10
+  ellipse(constrain(x - 5 + dispersal, 0, width), y, 10); // 10
+  ellipse(constrain(x + dispersal, 0, width), y, 10); // 10
+  ellipse(constrain(x + 5 + dispersal, 0, width), y, 10); // 10
+  ellipse(constrain(x + 10 + dispersal, 0, width), y, 10); // 10
+  ellipse(constrain(x - 10 + dispersal, 0, width), y + 5 + dispersal, 10); // 10
+  ellipse(constrain(x - 10 + dispersal, 0, width), y + 10 + dispersal, 10); // 10
 }
