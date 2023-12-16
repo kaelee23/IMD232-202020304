@@ -2,7 +2,7 @@ let t = 0; // 시간 변수
 let lineObj = null; // 클릭한 선을 저장할 변수
 
 function setup() {
-  createCanvas(600, 400); // Set your canvas size
+  setCanvasContainer('canvas', 2, 1, true);
   noFill();
 
   // Change line color to ash green (RGB values: 143, 188, 143)
@@ -10,6 +10,17 @@ function setup() {
 }
 
 function draw() {
+  stroke(0);
+  strokeWeight(2);
+  fill(127);
+  textSize(15);
+  textAlign(CENTER, CENTER);
+  text(
+    '마우스를 이동해 잔디 방향을 정리하고 클릭해서 풀을 뽑아보자',
+    width / 2,
+    height - 20
+  );
+
   background(10, 10); // 불투명한 배경화면(파티클의 꼬리 만들기)
 
   // 클릭한 선 그리기

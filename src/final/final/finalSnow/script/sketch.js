@@ -1,61 +1,71 @@
 let wPosition;
 
 function setup() {
-  createCanvas(600, 400);
-  background(255);
+  setCanvasContainer('canvas', 2, 1, true);
+  background(0);
 
-  // Store the initial position of the W
   wPosition = createVector(width / 2, height / 2);
 }
 
 function draw() {
-  background(255);
+  background(0);
+  fill('red');
+  ellipse(width / 2, height / 2, 9);
 
-  // Calculate the distance between the mouse and the center of the canvas
-  let distance = dist(mouseX, mouseY, width / 2, height / 2);
+  fill(127);
+  textSize(15);
+  textAlign(CENTER, CENTER);
+  text('마우스를 빨간점으로 옮겨서 눈을 뭉쳐보자', width / 2, height - 20);
 
-  // Map the distance to control the dispersal effect
-  let dispersal = map(distance, 0, width / 2, 0, 100);
+  let canvasCenterX = width / 2;
+  let canvasCenterY = height / 2;
 
-  // Draw the W at the updated position with dispersal effect
-  drawCharacterSnow(wPosition.x, wPosition.y, dispersal);
+  let distance = dist(mouseX, mouseY, canvasCenterX, canvasCenterY);
+
+  let dispersal = map(distance, 0, width / 2, 0, 300);
+
+  drawCharacterSnow(canvasCenterX, canvasCenterY, dispersal);
 }
-
 function drawCharacterSnow(x, y, dispersal) {
   fill(255);
 
-  // Top part of W
-  ellipse(constrain(x - 20 + dispersal, 0, width), y - 35 - dispersal, 10); //1
-  ellipse(constrain(x - 20 + dispersal, 0, width), y - 30 - dispersal, 10); // 2
-  ellipse(constrain(x - 20 + dispersal, 0, width), y - 25 - dispersal, 10); // 3
-  ellipse(constrain(x - 20 + dispersal, 0, width), y - 20 - dispersal, 10); // 10
-  ellipse(constrain(x - 20 + dispersal, 0, width), y - 15 - dispersal, 10); // 10
-  ellipse(constrain(x - 15 + dispersal, 0, width), y - 15 - dispersal, 10); // 10
-  ellipse(constrain(x - 10 + dispersal, 0, width), y - 15 - dispersal, 10); // 10
-  ellipse(constrain(x - 5 + dispersal, 0, width), y - 15 - dispersal, 10); // 10
-  ellipse(constrain(x + dispersal, 0, width), y - 15 - dispersal, 10); // 10
+  for (let i = 0; i < 10; i++) {
+    let xOffset = random(-dispersal, dispersal);
+    let yOffset = random(-dispersal, dispersal);
 
-  // Bottom part of W
-  ellipse(constrain(x - 20 + dispersal, 0, width), y + 10 + dispersal, 10); //1
-  ellipse(constrain(x - 20 + dispersal, 0, width), y + 15 + dispersal, 10); // 2
-  ellipse(constrain(x - 20 + dispersal, 0, width), y + 20 + dispersal, 10); // 3
-  ellipse(constrain(x - 20 + dispersal, 0, width), y + 25 + dispersal, 10); // 10
-  ellipse(constrain(x - 20 + dispersal, 0, width), y + 30 + dispersal, 10); // 10
-  ellipse(constrain(x - 15 + dispersal, 0, width), y + 30 + dispersal, 10); // 10
-  ellipse(constrain(x - 10 + dispersal, 0, width), y + 30 + dispersal, 10); // 10
-  ellipse(constrain(x - 5 + dispersal, 0, width), y + 30 + dispersal, 10); // 10
-  ellipse(constrain(x + dispersal, 0, width), y + 30 + dispersal, 10); // 10
+    // Top part of W
+    ellipse(constrain(x - 20 + xOffset, 0, width), y - 35 - yOffset, 10);
+    ellipse(constrain(x - 20 + xOffset, 0, width), y - 30 - yOffset, 10);
+    ellipse(constrain(x - 20 + xOffset, 0, width), y - 25 - yOffset, 10);
+    ellipse(constrain(x - 20 + xOffset, 0, width), y - 20 - yOffset, 10);
+    ellipse(constrain(x - 20 + xOffset, 0, width), y - 15 - yOffset, 10);
+    ellipse(constrain(x - 15 + xOffset, 0, width), y - 15 - yOffset, 10);
+    ellipse(constrain(x - 10 + xOffset, 0, width), y - 15 - yOffset, 10);
+    ellipse(constrain(x - 5 + xOffset, 0, width), y - 15 - yOffset, 10);
+    ellipse(constrain(x + xOffset, 0, width), y - 15 - yOffset, 10);
 
-  // Middle part of W
-  ellipse(constrain(x - 30 + dispersal, 0, width), y, 10); // 10
-  ellipse(constrain(x - 25 + dispersal, 0, width), y, 10); // 10
-  ellipse(constrain(x - 20 + dispersal, 0, width), y, 10); // 10
-  ellipse(constrain(x - 15 + dispersal, 0, width), y, 10); // 10
-  ellipse(constrain(x - 10 + dispersal, 0, width), y, 10); // 10
-  ellipse(constrain(x - 5 + dispersal, 0, width), y, 10); // 10
-  ellipse(constrain(x + dispersal, 0, width), y, 10); // 10
-  ellipse(constrain(x + 5 + dispersal, 0, width), y, 10); // 10
-  ellipse(constrain(x + 10 + dispersal, 0, width), y, 10); // 10
-  ellipse(constrain(x - 10 + dispersal, 0, width), y + 5 + dispersal, 10); // 10
-  ellipse(constrain(x - 10 + dispersal, 0, width), y + 10 + dispersal, 10); // 10
+    // Bottom part of W
+    ellipse(constrain(x - 20 + xOffset, 0, width), y + 10 + yOffset, 10);
+    ellipse(constrain(x - 20 + xOffset, 0, width), y + 15 + yOffset, 10);
+    ellipse(constrain(x - 20 + xOffset, 0, width), y + 20 + yOffset, 10);
+    ellipse(constrain(x - 20 + xOffset, 0, width), y + 25 + yOffset, 10);
+    ellipse(constrain(x - 20 + xOffset, 0, width), y + 30 + yOffset, 10);
+    ellipse(constrain(x - 15 + xOffset, 0, width), y + 30 + yOffset, 10);
+    ellipse(constrain(x - 10 + xOffset, 0, width), y + 30 + yOffset, 10);
+    ellipse(constrain(x - 5 + xOffset, 0, width), y + 30 + yOffset, 10);
+    ellipse(constrain(x + xOffset, 0, width), y + 30 + yOffset, 10);
+
+    // Middle part of W
+    ellipse(constrain(x - 30 + xOffset, 0, width), y + yOffset, 10);
+    ellipse(constrain(x - 25 + xOffset, 0, width), y + yOffset, 10);
+    ellipse(constrain(x - 20 + xOffset, 0, width), y + yOffset, 10);
+    ellipse(constrain(x - 15 + xOffset, 0, width), y + yOffset, 10);
+    ellipse(constrain(x - 10 + xOffset, 0, width), y + yOffset, 10);
+    ellipse(constrain(x - 5 + xOffset, 0, width), y + yOffset, 10);
+    ellipse(constrain(x + xOffset, 0, width), y + yOffset, 10);
+    ellipse(constrain(x + 5 + xOffset, 0, width), y + yOffset, 10);
+    ellipse(constrain(x + 10 + xOffset, 0, width), y + yOffset, 10);
+    ellipse(constrain(x - 10 + xOffset, 0, width), y + 5 + yOffset, 10);
+    ellipse(constrain(x - 10 + xOffset, 0, width), y + 10 + yOffset, 10);
+  }
 }

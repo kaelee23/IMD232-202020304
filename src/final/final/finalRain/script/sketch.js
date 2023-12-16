@@ -7,12 +7,18 @@ function setup() {
 
 function draw() {
   background(0);
+  stroke(0);
+  strokeWeight(2);
+  fill(127);
+  textSize(15);
+  textAlign(CENTER, CENTER);
+  text('마우스를 이동해 비를 피해보자', width / 2, height - 20);
   circle(mouseX, mouseY, 50);
 
   if (random(1) < 1) {
     let x = random(width);
     let y = -10;
-    let rotationSpeed = random(-0.2, 0.3);
+    let rotationSpeed = random(-0.2, 0.5);
     particles.push(new Particle(x, y, rotationSpeed));
   }
 

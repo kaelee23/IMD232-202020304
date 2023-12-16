@@ -3,14 +3,18 @@ let circlePositions = [];
 function setup() {
   setCanvasContainer('canvas', 3, 2, true);
 
-  background(255);
+  background(0);
 
   // Store the initial positions of the circles
   storeInitialPositions();
 }
 
 function draw() {
-  background(255);
+  background(0);
+  fill(127);
+  textSize(15);
+  textAlign(CENTER, CENTER);
+  text('마우스를 움직여 바람을 일으켜보자', width / 2, height - 20);
 
   circle(mouseX, mouseY, 50);
 
@@ -65,7 +69,7 @@ function updateCirclePositions() {
 // ... (rest of your code remains unchanged)
 
 function drawCharacterW(x, y) {
-  fill('black');
+  fill(255);
   ellipse(constrain(x - 20, 0, width), y - 30, 4); //1
   ellipse(constrain(x - 20, 0, width), y - 25, 4); // 2
   ellipse(constrain(x - 20, 0, width), y - 20, 4); // 3
@@ -84,7 +88,7 @@ function drawCharacterW(x, y) {
 }
 
 function drawCharacterI(x, y) {
-  fill('black');
+  fill(255);
   ellipse(constrain(x, 0, width), y - 30, 4); // top
   ellipse(constrain(x - 5, 0, width), y - 30, 4); // top
   ellipse(constrain(x + 5, 0, width), y - 30, 4); // top
@@ -99,7 +103,7 @@ function drawCharacterI(x, y) {
 }
 
 function drawCharacterN(x, y) {
-  fill('black');
+  fill(255);
   ellipse(constrain(x - 15, 0, width), y - 30, 4); // left-top
   ellipse(constrain(x - 15, 0, width), y - 25, 4); // left-top-middle
   ellipse(constrain(x - 15, 0, width), y - 20, 4); // left-middle
@@ -124,7 +128,7 @@ function drawCharacterN(x, y) {
 }
 
 function drawCharacterD(x, y) {
-  fill('black');
+  fill(255);
   ellipse(constrain(x - 15, 0, width), y - 30, 4); // left-top
   ellipse(constrain(x - 15, 0, width), y - 25, 4); // left-top-middle
   ellipse(constrain(x - 15, 0, width), y - 20, 4); // left-middle
