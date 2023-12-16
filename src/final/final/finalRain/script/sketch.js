@@ -6,7 +6,7 @@ function setup() {
 }
 
 function draw() {
-  background(255);
+  background(0);
   circle(mouseX, mouseY, 50);
 
   if (random(1) < 1) {
