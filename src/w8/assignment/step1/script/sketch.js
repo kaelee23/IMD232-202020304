@@ -1,21 +1,18 @@
-let traffic;
-let infiniteOffset = 80;
-
 function setup() {
   setCanvasContainer('canvas', 3, 2, true);
-  colorMode(HSL, 360, 100, 100, 100);
-  background('white');
-  traffic = new Traffic();
-  for (let n = 0; n < 10; n++) {
-    traffic.addVehicle(random(width), random(height));
-  }
+
+  background(255);
 }
 
 function draw() {
-  background('white');
-  traffic.run();
-}
+  background(255);
+  const text = '^(&*@#&#@($&*^*&^%#';
+  let result = '';
 
-function mouseDragged() {
-  traffic.addVehicle(mouseX, mouseY);
+  for (let i = 0; i < text.length; i++) {
+    result += ' '.repeat(i); // 현재 문자의 위치만큼 공백을 추가
+    result += text[i]; // 현재 문자를 추가
+  }
+
+  console.log(result);
 }
